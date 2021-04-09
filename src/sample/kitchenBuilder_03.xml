@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:controller="sample.ControllerPageAccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/fxml" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="396.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Pane prefHeight="140.0" prefWidth="1920.0" style="-fx-background-color: #FFF;">
+               <children>
+              <Label alignment="CENTER" layoutX="53.0" layoutY="20.0" prefHeight="51.0" prefWidth="238.0" style="&#10;" text="CastoMerlin" textAlignment="CENTER" wrapText="false">
+                <font>
+                  <Font name="Bodoni MT Bold" size="40.0" />
+                </font>
+              </Label>
+                  <Label alignment="CENTER" layoutX="750.0" layoutY="20.0" prefHeight="51.0" prefWidth="196.0" style="&#10;" text="Kitchen Builder" textAlignment="CENTER" textFill="#8b8b8b" wrapText="false">
+                     <font>
+                        <Font name="Bell MT Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="924.0" layoutY="20.0" prefHeight="51.0" prefWidth="196.0" style="&#10;" text="Services" textAlignment="CENTER" textFill="#8b8b8b" wrapText="false">
+                     <font>
+                        <Font name="Bell MT Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="1091.0" layoutY="20.0" prefHeight="51.0" prefWidth="196.0" style="&#10;" text="Catalogue" textAlignment="CENTER" textFill="#8b8b8b" wrapText="false">
+                     <font>
+                        <Font name="Bell MT Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Pane>
+            <ImageView fitHeight="926.0" fitWidth="1922.0" layoutX="-1.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Photos/main_menu_02.jpg" />
+               </image>
+            </ImageView>
+            <Button layoutX="828.0" layoutY="599.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="266.0" style="-fx-background-color: #3c3c3c; -fx-background-radius: 15 15 15 15;" text="Commencer" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="24.0" />
+               </font>
+            </Button>
+            <Label layoutX="676.0" layoutY="283.0" text="CrÃ©ez la cuisine" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="77.0" />
+               </font>
+            </Label>
+            <Label layoutX="521.0" layoutY="365.0" text="de vos rÃªves maintenant" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="77.0" />
+               </font>
+            </Label>
+            <Label layoutX="615.0" layoutY="456.0" text="Notre Kitchen builder vous permet d'agencer les meubles que vous" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="817.0" layoutY="490.0" text="voulez, comme vous voulez." textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="22.0" />
+               </font>
+            </Label>
+      </children>
+    </AnchorPane>
+      <Pane prefHeight="136.0" prefWidth="1920.0" style="-fx-background-color: #EBEBEB;">
+         <children>
+            <Label alignment="CENTER" layoutX="109.0" layoutY="12.0" prefHeight="51.0" prefWidth="304.0" style="&#10;" text="Â© 2020 Castomerlin.  All Rights Reserved." textAlignment="CENTER" textFill="#3c3c3c" wrapText="false">
+               <font>
+                  <Font name="Gill Sans MT" size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="1385.0" layoutY="12.0" prefHeight="51.0" prefWidth="304.0" style="&#10;" text="Termes d'utilisation" textAlignment="CENTER" textFill="#3c3c3c" wrapText="false">
+               <font>
+                  <Font name="Gill Sans MT" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+  </children>
+</VBox>
