@@ -25,4 +25,12 @@ public class ControllerPageAccueil{
 	public void setLargeur(float largeur) {
 		this.largeur = largeur;
 	}
+
+	public float getHauteur() {
+		return hauteur;
+	}
+
+	public void setHauteur(float hauteur) {
+		this.hauteur = hauteur;
+	}
 }
