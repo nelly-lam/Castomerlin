@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="720.0" prefWidth="1751.0" style="-fx-background-image: url(&quot;../Photos/main_menu_02,jpg&quot;);">
+         <children>
+            <MenuBar prefHeight="58.0" prefWidth="1281.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="CastoMerlin" />
+                <Menu mnemonicParsing="false" text="Kitchen Builder" />
+              </menus>
+            </MenuBar>
+            <ImageView fitHeight="575.0" fitWidth="1281.0" layoutX="-1.0" layoutY="57.0" opacity="0.41">
+               <image>
+                  <Image url="@../../Photos/builder_dimensions_scaled_widescreen.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="427.0" layoutY="173.0" text="Entrez vos dimensions" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Bold" size="39.0" />
+               </font>
+            </Label>
+            <TextField layoutX="541.0" layoutY="360.0" promptText="Largeur">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="541.0" layoutY="278.0" promptText="Longueur">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
+            <Button layoutX="599.0" layoutY="431.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="80.0" text="Creer">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</HBox>
