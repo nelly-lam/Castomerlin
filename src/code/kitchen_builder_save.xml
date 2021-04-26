@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox fx:controller="code.ControllerPageAccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="720.0" prefWidth="1751.0" style="-fx-background-image: url(&quot;../Photos/main_menu_02,jpg&quot;);">
+         <children>
+            <MenuBar prefHeight="58.0" prefWidth="1281.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="CastoMerlin" />
+                <Menu mnemonicParsing="false" text="Kitchen Builder" />
+              </menus>
+            </MenuBar>
+            <ImageView fitHeight="575.0" fitWidth="1281.0" layoutX="-1.0" layoutY="57.0" opacity="0.51">
+               <image>
+                  <Image url="photos/builder_dimensions_scaled_widescreen.jpg" />
+               </image>
+            </ImageView>
+            <Pane layoutX="30.0" layoutY="89.0" opacity="0.46" prefHeight="52.0" prefWidth="391.0" style="-fx-background-color: #CFCFCF;">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Undo" />
+                  <Button layoutX="70.0" layoutY="14.0" mnemonicParsing="false" text="Redo" />
+                  <Button layoutX="174.0" layoutY="14.0" mnemonicParsing="false" text="Sauvegarder" />
+                  <Button layoutX="279.0" layoutY="14.0" mnemonicParsing="false" text="Recommencer" />
+               </children>
+            </Pane>
+            <Pane layoutX="1011.0" layoutY="134.0" opacity="0.45" prefHeight="449.0" prefWidth="245.0" style="-fx-background-color: #CFCFCF;">
+               <children>
+                  <Accordion layoutX="1.0" layoutY="-4.0" prefHeight="449.0" prefWidth="245.0">
+                    <panes>
+                      <TitledPane animated="false" text="Evier">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane layoutX="7.0" layoutY="4.0" prefHeight="366.0" prefWidth="234.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <ImageView fitHeight="125.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Photos/brandon.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                             <children>
+                                                <Label layoutX="6.0" layoutY="14.0" prefHeight="17.0" prefWidth="92.0" text="Evier Brandon" />
+                                                <Button layoutX="33.0" layoutY="61.0" mnemonicParsing="false" text="ADD" />
+                                             </children>
+                                          </Pane>
+                                          <ImageView fitHeight="125.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <image>
+                                                <Image url="@../../Photos/brandon.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label layoutX="6.0" layoutY="14.0" prefHeight="17.0" prefWidth="92.0" text="Evier Brandon" />
+                                                <Button layoutX="33.0" layoutY="61.0" mnemonicParsing="false" text="ADD" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </TitledPane>
+                      <TitledPane animated="false" text="Frigo">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </TitledPane>
+                      <TitledPane animated="false" text="Plan de travail">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </TitledPane>
+                        <TitledPane animated="false" text="Four">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </TitledPane>
+                    </panes>
+                  </Accordion>
+               </children>
+            </Pane>
+            <Pane layoutX="396.0" layoutY="255.0" prefHeight="267.0" prefWidth="490.0" style="-fx-background-color: #BABABA;">
+               <children>
+                  <TextField fx:id="email" layoutX="133.0" layoutY="120.0" promptText="Email">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="141.0" layoutY="61.0" text="Sauvegardez votre cuisine">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="envoyer" layoutX="141.0" layoutY="200.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="92.0" text="Envoyer">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="annulerEnvoie" onMouseClicked="#annulerEnvoiePlan" layoutX="265.0" layoutY="200.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="92.0" text="Annuler">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane layoutX="63.0" layoutY="164.0" opacity="0.41" prefHeight="449.0" prefWidth="894.0" style="-fx-background-color: #BABABA;" visible="false" />
+         </children>
+      </Pane>
+   </children>
+</HBox>
