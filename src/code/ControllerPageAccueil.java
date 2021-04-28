@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class ControllerPageAccueil{
@@ -48,7 +49,8 @@ public class ControllerPageAccueil{
 	
 	private int LONG;
 	private int LARG;
-	
+	private double width = 1280;
+	private double height = 720;
 	
 	
 	
@@ -61,6 +63,25 @@ public class ControllerPageAccueil{
 	public Canvas getCanvas() {return canvas;}
 	public void setCanvas(Canvas canvas) {this.canvas = canvas;}
 
+	
+	public Stage launchWindow(String file, String title) throws IOException {
+		HBox hboxD = (HBox)FXMLLoader.load(getClass().getResource(file));
+		
+        Stage stageD = new Stage();
+        stageD.setTitle(title);
+        
+        Scene sceneD = new Scene(hboxD, width, height);
+        
+        stageD.setScene(sceneD);
+        stageD.show();
+        return stageD;
+	}
+	
+    protected void closeCurrentWindow(Button b) {
+    	Stage currentWindow = (Stage) b.getScene().getWindow();
+        currentWindow.close();
+    }
+    
     /**
      * commencer() : redirige vers une autre fenêtre Application 
      * pour récupérer les dimensions
@@ -68,32 +89,8 @@ public class ControllerPageAccueil{
      */
     @FXML
     protected void commencer() throws IOException {
-        //new PageDimension();
-        //System.out.println("Commencer");
-        //se rediriger vers la deuxieme page xml
-        Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		double width = screenSize.getWidth();
-		double height = screenSize.getHeight() - 60;
-		
-        HBox hboxD = (HBox)FXMLLoader.load(getClass().getResource("kitchen_builder_dimensions.xml"));
-        Stage stageD = new Stage();
-        stageD.setTitle("CastoMerlin - dimension de votre cuisine");
-        Scene sceneD = new Scene(hboxD, width, height);
-        stageD.setScene(sceneD);
-        stageD.show();
-		
-    	/*
-    	HBox hbox = (HBox)FXMLLoader.load(getClass().getResource("kitchen_builder_dimensions.xml"));
-        ChildController controller = loader.getController();
-        controller.setMainWindow(this);
-        Stage stage = new Stage();
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(button.getScene().getWindow());
-        Scene scene = new Scene(newWindow);
-        stage.setScene(scene);
-        stage.show();
-        */
-        
+		Stage newWindow = launchWindow("kitchen_builder_dimensions.xml", "CastoMerlin - dimension de votre cuisine");
+        closeCurrentWindow(commencer);
     }
     
     
@@ -105,22 +102,21 @@ public class ControllerPageAccueil{
     protected void creerPlan() throws IOException {
     	if(longueur.getText().trim().isEmpty() && largeur.getText().trim().isEmpty()) {
     		information.setText("Veuillez rentrer une longeur et une largeur");
-    	}else if(longueur.getText().trim().isEmpty()) {
+    	} else if(longueur.getText().trim().isEmpty()) {
     		information.setText("Veuillez rentrer une longueur");
-    	}else if(largeur.getText().trim().isEmpty()) {
+    	} else if(largeur.getText().trim().isEmpty()) {
     		information.setText("Veuillez rentrer une largeur");
-    	}else {
-    		//on cree une nouvelle fenetre
-            Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-    		double width = screenSize.getWidth();
-    		double height = screenSize.getHeight() - 60;
+    	} else {
     		
-            HBox hboxC = (HBox)FXMLLoader.load(getClass().getResource("kitchen_builder_creation.xml"));
+    		Stage newWindow = launchWindow("kitchen_builder_creation.xml", "CastoMerlin - création de votre plan de cuisine");
+            
+    		closeCurrentWindow(creer);
             
             //on recupere les dimensions de la cuisine
     		this.setLONG(Integer.valueOf(longueur.getText()));
     		this.setLARG(Integer.valueOf(largeur.getText()));
 
+    		
     		//initialisation du canvas
     		//canvas = new Canvas(this.getLONG(), this.getLARG());
     		/*
@@ -131,12 +127,6 @@ public class ControllerPageAccueil{
             
             plan.getChildren().add(canvas);
             hboxC.getChildren().add(plan);*/
-            
-            Stage stageC = new Stage();
-            stageC.setTitle("CastoMerlin - création de votre plan de cuisine");
-            Scene sceneC = new Scene(hboxC, width, height);
-            stageC.setScene(sceneC);
-            stageC.show();
             
     	}
     }
@@ -153,12 +143,15 @@ public class ControllerPageAccueil{
     
     @FXML
     protected void sauvegarderPlan() throws IOException {
-        HBox hboxS = (HBox)FXMLLoader.load(getClass().getResource("kitchen_builder_save.xml"));
-        Stage stageS = new Stage();
-        stageS.setTitle("CastoMerlin - sauvegarde de votre plan de cuisine");
-        Scene sceneS = new Scene(hboxS);
-        stageS.setScene(sceneS);
-        stageS.show();
+		HBox hboxD = (HBox)FXMLLoader.load(getClass().getResource("kitchen_builder_save.xml"));
+		
+        Stage stageD = new Stage();
+        stageD.setTitle("CastoMerlin - sauvegarde de votre plan de cuisine");
+        
+        Scene sceneD = new Scene(hboxD, 470, 300);
+        
+        stageD.setScene(sceneD);
+        stageD.show();
     }
     
     @FXML
@@ -168,15 +161,7 @@ public class ControllerPageAccueil{
     
     @FXML
     protected void annulerEnvoiePlan() {
-        Stage stageS = (Stage) annulerEnvoie.getScene().getWindow();
-        stageS.close();
+    	
+    	closeCurrentWindow(annulerEnvoie);
     }
-
-    @FXML
-    protected void retournerKitchenBuilder() throws IOException {
-        Stage stageS = (Stage) annulerEnvoie.getScene().getWindow();
-        stageS.close();
-        commencer();
-    }
-
 }
