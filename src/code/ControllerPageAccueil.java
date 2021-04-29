@@ -1,5 +1,6 @@
 package code;
 
+import java.awt.Dimension;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
