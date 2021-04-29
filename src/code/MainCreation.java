@@ -25,8 +25,8 @@ public class MainCreation extends Application{
         
         // Get the graphics context of the canvas
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.BLACK);
-        gc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+        //gc.setFill(Color.BLACK);
+        //gc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
 		
         hboxPA.getChildren().add(canvas);
         //Scene myScenePA = new Scene(group, 1280, 720);
