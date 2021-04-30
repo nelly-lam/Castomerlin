@@ -1,18 +1,13 @@
 package code;
 
-import java.awt.Dimension;
-import java.io.IOException;
-
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -27,7 +22,12 @@ public class Main extends Application {
 		//System.out.printf("width %f\n", width);
 		//System.out.printf("height %f\n", height);
 		
+<<<<<<< HEAD
+        Pane hboxPA = (Pane)FXMLLoader.load(getClass().getResource("kitchen_builder_homepage.xml"));
+        
+=======
         HBox hboxPA = (HBox)FXMLLoader.load(getClass().getResource("kitchen_builder_homepage.xml"));
+>>>>>>> refs/remotes/origin/master
         Scene myScenePA = new Scene(hboxPA, width, height);
 
         primaryStage.setScene(myScenePA);
@@ -36,6 +36,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        launch(args);
+    	launch(args);
     }
+
 }

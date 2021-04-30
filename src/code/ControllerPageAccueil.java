@@ -3,10 +3,8 @@ package code;
 import java.awt.Dimension;
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,8 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class ControllerPageAccueil{
@@ -31,8 +29,7 @@ public class ControllerPageAccueil{
 	@FXML private Label information;
 	
 	//components de la page de creation
-	@FXML private Pane plan;
-	private Canvas canvas;
+	//@FXML private Pane plan;
 	
 	@FXML private Button defaire;
 	@FXML private Button refaire;
@@ -41,6 +38,8 @@ public class ControllerPageAccueil{
 	
 	@FXML private Button addEvier1;
 	@FXML private Button addEvier2;
+	@FXML private Button addEvier3;
+	@FXML private Button addEvier4;
 	
 	//components de la page de sauvegarde
 	@FXML private TextField email;
@@ -60,16 +59,38 @@ public class ControllerPageAccueil{
 	public void setLONG(int lONG) {LONG = lONG;}
 	public int getLARG() {return LARG;}
 	public void setLARG(int lARG) {LARG = lARG;}
-	public Canvas getCanvas() {return canvas;}
-	public void setCanvas(Canvas canvas) {this.canvas = canvas;}
+	//public Canvas getCanvas() {return canvas;}
+	//public void setCanvas(Canvas canvas) {this.canvas = canvas;}
 
 	
 	public Stage launchWindow(String file, String title) throws IOException {
-		HBox hboxD = (HBox)FXMLLoader.load(getClass().getResource(file));
+		Pane hboxD = (Pane)FXMLLoader.load(getClass().getResource(file));
 		
         Stage stageD = new Stage();
         stageD.setTitle(title);
+        Scene sceneD = new Scene(hboxD, width, height);
         
+        stageD.setScene(sceneD);
+        stageD.show();
+        return stageD;
+	}
+	
+	public Stage launchWindowCanvas(String file, String title) throws IOException {
+		Pane hboxD = (Pane)FXMLLoader.load(getClass().getResource(file));
+		
+        Stage stageD = new Stage();
+        stageD.setTitle(title);
+
+        //creation du canvas
+        Canvas canvas = new Canvas();
+        canvas.setWidth(400);
+        canvas.setHeight(200);
+        
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0,width,canvas.getWidth(),canvas.getHeight());
+        hboxD.getChildren().add(canvas);
+
         Scene sceneD = new Scene(hboxD, width, height);
         
         stageD.setScene(sceneD);
@@ -108,25 +129,31 @@ public class ControllerPageAccueil{
     		information.setText("Veuillez rentrer une largeur");
     	} else {
     		
-    		Stage newWindow = launchWindow("kitchen_builder_creation.xml", "CastoMerlin - création de votre plan de cuisine");
+    		//Stage newWindow = launchWindowCanvas("kitchen_builder_creation.xml", "CastoMerlin - création de votre plan de cuisine");
+    		Pane hboxD = (Pane)FXMLLoader.load(getClass().getResource("kitchen_builder_creation.xml"));
+    		
+            Stage stageD = new Stage();
+            stageD.setTitle("CastoMerlin - création de votre plan de cuisine");
+
+            //creation du canvas
+            Canvas canvas = new Canvas(894.0,449.0);
+            canvas.setLayoutX(63.0);
+            canvas.setLayoutY(164);
             
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setFill(Color.BLACK);
+            gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            hboxD.getChildren().add(canvas);
+
+            Scene sceneD = new Scene(hboxD, width, height);
+            
+            stageD.setScene(sceneD);
+            stageD.show();
     		closeCurrentWindow(creer);
             
             //on recupere les dimensions de la cuisine
     		this.setLONG(Integer.valueOf(longueur.getText()));
     		this.setLARG(Integer.valueOf(largeur.getText()));
-
-    		
-    		//initialisation du canvas
-    		//canvas = new Canvas(this.getLONG(), this.getLARG());
-    		/*
-    		canvas = new Canvas(300,300);
-            
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.fillRect((int) plan.getLayoutX(),(int) plan.getLayoutY(),canvas.getWidth(),canvas.getHeight());
-            
-            plan.getChildren().add(canvas);
-            hboxC.getChildren().add(plan);*/
             
     	}
     }
@@ -161,7 +188,6 @@ public class ControllerPageAccueil{
     
     @FXML
     protected void annulerEnvoiePlan() {
-    	
     	closeCurrentWindow(annulerEnvoie);
     }
 }
