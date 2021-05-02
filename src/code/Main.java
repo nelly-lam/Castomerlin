@@ -22,8 +22,8 @@ public class Main extends Application {
 		//System.out.printf("width %f\n", width);
 		//System.out.printf("height %f\n", height);
 		
-        Pane hboxPA = (Pane)FXMLLoader.load(getClass().getResource("kitchen_builder_homepage.xml"));
-        Scene myScenePA = new Scene(hboxPA, width, height);
+        Pane pane = (Pane)FXMLLoader.load(getClass().getResource("kitchen_builder_homepage.xml"));
+        Scene myScenePA = new Scene(pane, width, height);
 
         primaryStage.setScene(myScenePA);
         primaryStage.show();
