@@ -255,12 +255,17 @@
                   										<Font size="13.0" />
                										</font>
                									</Label>
-                                                <Label layoutX="13.0" layoutY="30.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x60cm">
+               									<Label layoutX="13.0" layoutY="29.0" prefHeight="17.0" prefWidth="92.0" text="150€">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Button fx:id="addCounter1" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="50.0" mnemonicParsing="false" text="ajouter" />
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x60cm">
+                                                    <font>
+                  										<Font size="9.0" />
+               										</font>
+                                                </Label>
+                                                <Button fx:id="addCounter1" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="57.0" mnemonicParsing="false" text="ajouter" />
                                              </children>
                                           </Pane>
                                           <ImageView fitHeight="125.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
@@ -275,12 +280,17 @@
                   										<Font size="13.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="30.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x60cm">
+                                                <Label layoutX="13.0" layoutY="29.0" prefHeight="17.0" prefWidth="92.0" text="150€">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Button fx:id="addCounter2" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="50.0" mnemonicParsing="false" text="ajouter" />
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x60cm">
+                                                    <font>
+                  										<Font size="9.0" />
+               										</font>
+                                                </Label>
+                                                <Button fx:id="addCounter2" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="57.0" mnemonicParsing="false" text="ajouter" />
                                              </children>
                                           </Pane>
                                        </children>
@@ -317,12 +327,17 @@
                   										<Font size="13.0" />
                										</font>
                									</Label>
-                                                <Label layoutX="13.0" layoutY="30.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+               									<Label layoutX="13.0" layoutY="29.0" prefHeight="17.0" prefWidth="92.0" text="200€">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Button fx:id="addFour1" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="50.0" mnemonicParsing="false" text="ajouter" />
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                    <font>
+                  										<Font size="9.0" />
+               										</font>
+                                                </Label>
+                                                <Button fx:id="addFour1" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="57.0" mnemonicParsing="false" text="ajouter" />
                                              </children>
                                           </Pane>
                                           <ImageView fitHeight="125.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
@@ -337,12 +352,17 @@
                   										<Font size="13.0" />
                										</font>
                									</Label>
-                                                <Label layoutX="13.0" layoutY="30.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+               									<Label layoutX="13.0" layoutY="29.0" prefHeight="17.0" prefWidth="92.0" text="200€">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Button fx:id="addFour2" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="50.0" mnemonicParsing="false" text="ajouter" />
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                    <font>
+                  										<Font size="9.0" />
+               										</font>
+                                                </Label>
+                                                <Button fx:id="addFour2" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="57.0" mnemonicParsing="false" text="ajouter" />
                                              </children>
                                           </Pane>
                                           <ImageView fitHeight="125.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
@@ -357,12 +377,17 @@
                   										<Font size="13.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="30.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                <Label layoutX="13.0" layoutY="29.0" prefHeight="17.0" prefWidth="92.0" text="200€">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Button fx:id="addFour3" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="50.0" mnemonicParsing="false" text="ajouter" />
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                    <font>
+                  										<Font size="9.0" />
+               										</font>
+                                                </Label>
+                                                <Button fx:id="addFour3" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="57.0" mnemonicParsing="false" text="ajouter" />
                                              </children>
                                           </Pane>
                                           <ImageView fitHeight="125.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
@@ -377,12 +402,17 @@
                   										<Font size="13.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="30.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                <Label layoutX="13.0" layoutY="29.0" prefHeight="17.0" prefWidth="92.0" text="200€">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Button fx:id="addFour4" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="50.0" mnemonicParsing="false" text="ajouter" />
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                    <font>
+                  										<Font size="9.0" />
+               										</font>
+                                                </Label>
+                                                <Button fx:id="addFour4" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="57.0" mnemonicParsing="false" text="ajouter" />
                                              </children>
                                           </Pane>
                                        </children>
