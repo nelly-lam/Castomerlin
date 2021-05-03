@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -29,6 +31,14 @@ public class ControllerCreation{
 	private ArrayList<ImageView> imageListCopy = new ArrayList<ImageView>();
 	
 	private ArrayList<ObjetCuisine> listeObjetCuisine = new ArrayList<ObjetCuisine>();
+	
+	private double echelle;
+	//@FXML private Line longueurSurPlanTrait;
+	@FXML private Label longueurSurPlan;
+	//@FXML private Line largeurSurPlanTrait;
+	@FXML private Label largeurSurPlan;
+	@FXML private Line mesure50cmTrait;
+	@FXML private Label mesure50cm;
 	
 	private Scene scene;
 	private Stage stage;
@@ -181,6 +191,21 @@ public class ControllerCreation{
 	public void setWidthRectangle(int d) {this.rectangle.setWidth(d);}
 	
 	
+	/*****************POUR RECUPERER L'ECHELLE******************/
+	public double getEchelle() {return echelle;}
+	public void setEchelle(double echelle) {this.echelle = echelle;}
+	public void setLongueurSurPlan(String s) { this.longueurSurPlan.setText(s); }
+	public void setLargeurSurPlan(String s) { this.largeurSurPlan.setText(s); }
+	
+	public void setLayoutYMesure50cmTrait(int ord) { 
+		this.mesure50cmTrait.setStartY(ord+getLayoutYRectangle()); 
+		this.mesure50cmTrait.setEndY(ord+getLayoutYRectangle()); 
+	}
+	public void setWidthmesure50cmTrait(double width) { 
+		this.mesure50cmTrait.setStartX(this.mesure50cmTrait.getEndX()+width);
+	}
+	public void setLayoutYMesure50cm(int ord ) { this.mesure50cm.setLayoutY(ord+getLayoutYRectangle()); }
+	public void setMesure50cm(String txt) { this.mesure50cm.setText(txt); }
 	
 	
 	
@@ -213,52 +238,52 @@ public class ControllerCreation{
     	Button b = ((Button)e.getSource());
     	
     	if(b.equals(addEvier1)) {
-        	Image image = new Image("photos/evier_gris.png", 120, 60, false, false);
+        	Image image = new Image("photos/evier_gris.png", 120*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/evier_gris.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	
     	}else if(b.equals(addEvier2)) {
-        	Image image = new Image("photos/evier_inox.png", 120, 60, false, false);
+        	Image image = new Image("photos/evier_inox.png", 120*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/evier_inox.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	
     	}else if(b.equals(addEvier3)) {
-        	Image image = new Image("photos/evier_marbre.png", 120, 60, false, false);
+        	Image image = new Image("photos/evier_marbre.png", 120*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/evier_marbre.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addEvier4)) {
-        	Image image = new Image("photos/evier_sable.png", 120, 60, false, false);
+        	Image image = new Image("photos/evier_sable.png", 120*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/evier_sable.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addCounter1)) {
-        	Image image = new Image("photos/counter_marbreBlanc.png", 60, 60, false, false);
+        	Image image = new Image("photos/counter_marbreBlanc.png", 60*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/counter_marbreBlanc.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addCounter2)) {
-        	Image image = new Image("photos/counter_marbreNoir.png", 60, 60, false, false);
+        	Image image = new Image("photos/counter_marbreNoir.png", 60*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/counter_marbreNoir.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addFour1)) {
-        	Image image = new Image("photos/four_gris.png", 60, 70, false, false);
+        	Image image = new Image("photos/four_gris.png", 70*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/four_gris.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addFour2)) {
-        	Image image = new Image("photos/four_inox.png", 60, 70, false, false);
+        	Image image = new Image("photos/four_inox.png", 70*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/four_inox.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addFour3)) {
-        	Image image = new Image("photos/four_marbre.png",60, 70, false, false);
+        	Image image = new Image("photos/four_marbre.png",70*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/four_marbre.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addFour4)) {
-        	Image image = new Image("photos/four_sable.png", 60, 70, false, false);
+        	Image image = new Image("photos/four_sable.png", 70*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/four_sable.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
@@ -269,7 +294,7 @@ public class ControllerCreation{
         
     	//on ajoute la nouvelle ImageView dans la liste imageList et dans le pane
     	addToImageList(iv);
-    	System.out.printf("size listObjetCuisine =%d\n", getListeObjetCuisine().size());
+    	//System.out.printf("size listObjetCuisine =%d\n", getListeObjetCuisine().size());
     	
     	//on copie la liste des objets dans la liste "copie"
     	setImageListCopy(getImageList());
@@ -281,7 +306,7 @@ public class ControllerCreation{
     	ImageViewOnMousePressedEventHandler ivompeh = new ImageViewOnMousePressedEventHandler();
     	iv.setOnMousePressed(ivompeh);
     	
-    	System.out.printf("getHeightRectangle() = %d\n",getHeightRectangle());
+    	//System.out.printf("getHeightRectangle() = %d\n",getHeightRectangle());
     	
     	ImageViewOnMouseDraggedEventHandler ivomdeh = new ImageViewOnMouseDraggedEventHandler(ivompeh.getPressedX(), ivompeh.getPressedY(), 
     			getLayoutXRectangle(), getLayoutYRectangle(), getWidthRectangle(), getHeightRectangle(), ivompeh.getAncienDeplacementX(), ivompeh.getAncienDeplacementY());
@@ -407,6 +432,8 @@ public class ControllerCreation{
     protected void recommencerPlan() {
     	
     }
+
+
 
 
 

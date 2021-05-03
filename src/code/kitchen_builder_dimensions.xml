@@ -32,12 +32,12 @@
                   <Font name="Arial Bold" size="39.0" />
                </font>
             </Label>
-            <TextField fx:id="largeur" text="400" layoutX="541.0" layoutY="360.0" promptText="Largeur (en cm)">
+            <TextField fx:id="largeur" text="450" layoutX="541.0" layoutY="360.0" promptText="Largeur (en cm)">
                <font>
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="longueur" text="650" layoutX="541.0" layoutY="278.0" promptText="Longueur (en cm)">
+            <TextField fx:id="longueur" text="850" layoutX="541.0" layoutY="278.0" promptText="Longueur (en cm)">
                <font>
                   <Font size="17.0" />
                </font>

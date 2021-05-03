@@ -18,6 +18,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Line?>
 
 
 <Pane fx:controller="code.ControllerCreation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -80,7 +81,7 @@
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 120x65cm">
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 120x60cm">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
@@ -105,7 +106,7 @@
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 120x65cm">
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 120x60cm">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
@@ -130,7 +131,7 @@
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 120x65cm">
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 120x60cm">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
@@ -155,7 +156,7 @@
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 120x65cm">
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 120x60cm">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
@@ -332,7 +333,7 @@
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 70x60cm">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
@@ -357,7 +358,7 @@
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 70x60cm">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
@@ -382,7 +383,7 @@
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 70x60cm">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
@@ -407,7 +408,7 @@
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 60x70cm">
+                                                <Label layoutX="13.0" layoutY="40.0" prefHeight="17.0" prefWidth="92.0" text="Dimension 70x60cm">
                                                     <font>
                   										<Font size="9.0" />
                										</font>
@@ -427,6 +428,24 @@
             </Pane>
          	<Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#bababa" height="449.0" layoutX="63.0" layoutY="163.0" stroke="BLACK" strokeType="INSIDE" width="894.0" />
          </children>
+         	<Label fx:id="largeurSurPlan" layoutX="-12.0" layoutY="240.0" prefHeight="17.0" prefWidth="123.0" rotate="-90.0" text="largeur">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Label fx:id="longueurSurPlan" layoutX="119.0" layoutY="145.0" prefHeight="17.0" prefWidth="123.0" text="longueur">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Line fx:id="mesure50cmTrait" endX="120.33334350585938" endY="630.3333129882812" layoutX="-11.0" layoutY="3.0" startX="206.99998474121094" startY="630.3333129882812" />
+            <Line fx:id="longueurSurPlanTrait" endX="876.833251953125" endY="135.1666717529297" layoutX="-827.0" layoutY="18.0" startX="935.3333129882812" startY="135.1666717529297" />
+            <Line fx:id="largeurSurPlanTrait" endX="953.833251953125" endY="135.6666717529297" layoutX="-904.0" layoutY="18.0" startX="953.833251953125" startY="207.3333282470703" />
+            <Label fx:id="mesure50cm" layoutX="63.0" layoutY="618.0" prefHeight="17.0" prefWidth="56.0" text="50 cm =" textAlignment="CENTER">
+            	<font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
       </Pane>
    </children>
 </Pane>
