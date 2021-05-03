@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -14,8 +15,8 @@ public class MainCreation extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle("CastoMerlin - création de votre plan de cuisine");
-		HBox hboxPA = (HBox)FXMLLoader.load(getClass().getResource("kitchen_builder_creation.xml"));
+		primaryStage.setTitle("CastoMerlin - creation de votre plan de cuisine");
+		Pane hboxPA = (Pane)FXMLLoader.load(getClass().getResource("kitchen_builder_creation.xml"));
 
 		//Group group = new Group();
 		// Create the Canvas
