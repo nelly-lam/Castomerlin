@@ -66,7 +66,6 @@ public class ControllerCreation{
 	@FXML private Button addEvier3;
 	@FXML private Button addEvier4;
 	@FXML private Button addFrigo1;
-	@FXML private Button addFrigo2;
 	@FXML private Button addCounter1;
 	@FXML private Button addCounter2;
 	@FXML private Button addFour1;
@@ -287,6 +286,10 @@ public class ControllerCreation{
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/four_sable.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
+    	}else if(b.equals(addFrigo1)) {
+        	Image image = new Image("photos/frigo.jpg", 60*getEchelle(), 75*getEchelle(), false, false);
+        	iv.setImage(image);
+    		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/frigo.jpg", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	}
 
     	//eraseObjetSelectionne();
