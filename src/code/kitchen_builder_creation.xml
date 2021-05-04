@@ -31,7 +31,7 @@
                 <Menu mnemonicParsing="false" text="Kitchen Builder" />
               </menus>
             </MenuBar>
-            <ImageView fitHeight="575.0" fitWidth="1281.0" layoutX="-1.0" layoutY="57.0" opacity="0.41">
+            <ImageView fx:id="frame" fitHeight="575.0" fitWidth="1281.0" layoutX="-1.0" layoutY="57.0" opacity="0.41">
                <image>
                   <Image url="photos/builder_dimensions_scaled_widescreen.jpg" />
                </image>
@@ -405,7 +405,7 @@
                   </Accordion>
                </children>
             </Pane>
-         	<Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#bababa" height="449.0" layoutX="63.0" layoutY="163.0" stroke="BLACK" strokeType="INSIDE" width="894.0" />
+         	<Rectangle fx:id="planCuisine" arcHeight="5.0" arcWidth="5.0" fill="#bababa" height="449.0" layoutX="63.0" layoutY="163.0" stroke="BLACK" strokeType="INSIDE" width="894.0" />
          	<Button fx:id="addPorte" onMouseClicked="#ajouterPorteFenetre" layoutX="1038.0" layoutY="613.0" mnemonicParsing="false" text="Ajout porte" />
             <Button fx:id="addFenetre" onMouseClicked="#ajouterPorteFenetre" layoutX="1148.0" layoutY="613.0" mnemonicParsing="false" text="Ajout fenêtre" />
             <Label fx:id="largeurSurPlan" layoutX="-12.0" layoutY="240.0" prefHeight="17.0" prefWidth="123.0" rotate="-90.0" text="largeur">

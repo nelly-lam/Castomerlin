@@ -186,8 +186,8 @@ public class ControllerPageAccueil{
         		ca.setLayoutYMesure50cm(getLARG()+10);
         		
         		//on change les dimensions du plan (rectangle)
-        		ca.setHeightRectangle(getLARG());
-        		ca.setWidthRectangle(getLONG());
+        		ca.setHeightPlanCuisine(getLARG());
+        		ca.setWidthPlanCuisine(getLONG());
         		ca.setEchelle(getEchelle());
 
                 scene = new Scene(pane, widthFrame, heightFrame);
