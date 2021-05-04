@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane fx:controller="code.ControllerPageAccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="controller.ControllerPageAccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="720.0" prefWidth="1751.0" style="-fx-background-image: url(&quot;../Photos/main_menu_02,jpg&quot;);">
          <children>

@@ -1,4 +1,4 @@
-package code;
+package controller;
 
 import java.io.IOException;
 
@@ -97,8 +97,7 @@ public class ControllerPageAccueil{
      */
     @FXML
     protected void commencer() throws IOException {
-		launchWindow("kitchen_builder_dimensions.xml", "CastoMerlin - dimension de votre cuisine");
-
+		launchWindow("/code/kitchen_builder_dimensions.xml", "CastoMerlin - dimension de votre cuisine");
 		closeCurrentWindow(commencer);
     }
     
@@ -130,7 +129,7 @@ public class ControllerPageAccueil{
                 Stage stageD = new Stage();
                 stageD.setTitle("CastoMerlin - création de votre plan de cuisine");
                 
-        		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("kitchen_builder_creation.xml"));
+        		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/code/kitchen_builder_creation.xml"));
                 Pane pane = (Pane) fxmlLoader.load();
                 ControllerCreation ca = fxmlLoader.<ControllerCreation>getController();
                 

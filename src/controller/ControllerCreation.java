@@ -1,6 +1,5 @@
-package code;
+package controller;
 
-import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -49,6 +48,7 @@ public class ControllerCreation{
 	//pour le deplacement des objets
     //private double curseurDebutX, curseurDebutY;
     private double orgTranslateX, orgTranslateY;
+
 	private double orgSceneX, orgSceneY;
 	
 	@FXML private Button defaire;
@@ -140,8 +140,15 @@ public class ControllerCreation{
     	//on copie la liste des objets dans la liste "copie"
     	setImageListCopy(getImageList());
     	
-    	ImageViewOnMouseClickedEventHandler imageViewClickEvent = new ImageViewOnMouseClickedEventHandler(getPane(), getImageList(), getImageListCopy());
+    	iv.setOnMousePressed(pressEvent);
+    	iv.setOnMouseDragged(dragEvent);
+        iv.setOnMouseReleased(releaseEvent);
+        
+    	ImageViewOnMouseClickedEventHandler imageViewClickEvent = new ImageViewOnMouseClickedEventHandler(getPane(), getImageList(), getImageListCopy(),
+    			orgTranslateX, orgTranslateY, getPlanCuisine());
         iv.setOnMouseClicked(imageViewClickEvent);
+        
+
     }
     
     
@@ -318,14 +325,12 @@ public class ControllerCreation{
     	
     	iv.setOnMousePressed(pressEvent);
     	iv.setOnMouseDragged(dragEvent);
-    	//imageViewOnMouseDraggedEventHandler
-
+        iv.setOnMouseReleased(releaseEvent);
+        
     	//pour la suppression de l'imageView
     	ImageViewOnMouseClickedEventHandler imageViewClickEvent = new ImageViewOnMouseClickedEventHandler(
-			getPane(), getImageList(), getImageListCopy());
+			getPane(), getImageList(), getImageListCopy(), getOrgTranslateX(), getOrgTranslateY(), getPlanCuisine());
         iv.setOnMouseClicked(imageViewClickEvent);
-        
-        iv.setOnMouseReleased(releaseEvent);
  
     }
 
@@ -393,23 +398,22 @@ public class ControllerCreation{
     			((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
     		}else {
     		
-    		//System.out.printf("getImageList().size() = %d\n", getImageList().size());
-    		ArrayList<ImageView> otherImages = new ArrayList<ImageView>();
+    			//System.out.printf("getImageList().size() = %d\n", getImageList().size());
+    			ArrayList<ImageView> otherImages = new ArrayList<ImageView>();
     		
-    		for(int i = 0; i < getImageList().size(); i++) {
-    			if(!iv.equals(getImageList().get(i))) {
-    				otherImages.add(getImageList().get(i));
+    			for(int i = 0; i < getImageList().size(); i++) {
+    				if(!iv.equals(getImageList().get(i))) {
+    					otherImages.add(getImageList().get(i));
+    				}
     			}
-    		}
-    		
-    		
-    		for(int i = 0; i < otherImages.size(); i++) {
-    			if(iv.getBoundsInParent().intersects(otherImages.get(i).getBoundsInParent())) {
-    				//System.out.print("collision!\n");
-    				((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
-    	            ((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
+    			
+    			for(int i = 0; i < otherImages.size(); i++) {
+    				if(iv.getBoundsInParent().intersects(otherImages.get(i).getBoundsInParent())) {
+    					//System.out.print("collision!\n");
+    					((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
+    					((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
+    				}
     			}
-    		}
     		}
     	}
     };
@@ -490,7 +494,7 @@ public class ControllerCreation{
     
     @FXML
     protected void sauvegarderPlan() throws IOException {
-		HBox hboxD = (HBox)FXMLLoader.load(getClass().getResource("kitchen_builder_save.xml"));
+		HBox hboxD = (HBox)FXMLLoader.load(getClass().getResource("/code/kitchen_builder_save.xml"));
 		
         Stage stageD = new Stage();
         stageD.setTitle("CastoMerlin - sauvegarde de votre plan de cuisine");
@@ -563,6 +567,9 @@ public class ControllerCreation{
 
 	public void setPane(Pane pane) {this.pane = pane;}
 	public Pane getPane() {return pane;}
+	
+	public Rectangle getPlanCuisine() {return planCuisine;}
+	public void setPlanCuisine(Rectangle planCuisine) {this.planCuisine = planCuisine;}
 
 	public ArrayList<ImageView> getImageListCopy() {return imageListCopy;}
 	public void setImageListCopy(ArrayList<ImageView> imageListCopy) {this.imageListCopy = imageListCopy;}

@@ -1,4 +1,4 @@
-package code;
+package controller;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
@@ -16,13 +17,20 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
 	private ArrayList<ImageView> imageList, imageListCopy;
 	private Pane pane;
 	private boolean isFlipped;
+	private double orgTranslateX;
+	private double orgTranslateY;
+	private Rectangle planCuisine;
 	
 	
-	public ImageViewOnMouseClickedEventHandler(Pane p, ArrayList<ImageView> imageList, ArrayList<ImageView> imageListCopy) {
+	public ImageViewOnMouseClickedEventHandler(Pane p, ArrayList<ImageView> imageList, 
+			ArrayList<ImageView> imageListCopy, double orgTranslateX, double orgTranslateY, Rectangle planCuisine) {
 		this.pane = p;
 		this.imageList = imageList;
 		this.setImageListCopy(imageListCopy);
 		this.isFlipped = false;
+		this.orgTranslateX = orgTranslateX;
+		this.orgTranslateY = orgTranslateY;
+		this.planCuisine = planCuisine;
 	}
 	
 	
@@ -74,6 +82,7 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
         		imageList.get(i).setRotate(imageList.get(i).getRotate() + 90); 
             }
         }
+		collisionPlan(mouseEvent);
 	}
 	
 	public void pivoterDObjet(MouseEvent mouseEvent) {
@@ -82,6 +91,34 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
         		imageList.get(i).setRotate(imageList.get(i).getRotate() - 90); 
             }
         }
+		collisionPlan(mouseEvent);
+	}
+	
+	
+	public void collisionPlan(MouseEvent mouseEvent) {
+		ImageView iv = (ImageView)(mouseEvent.getSource());
+		if(!iv.getBoundsInParent().intersects(planCuisine.getBoundsInParent())) {
+			((ImageView)(mouseEvent.getSource())).setTranslateX(this.orgTranslateX);
+			((ImageView)(mouseEvent.getSource())).setTranslateY(this.orgTranslateY);
+		}else {
+		
+			//System.out.printf("getImageList().size() = %d\n", getImageList().size());
+			ArrayList<ImageView> otherImages = new ArrayList<ImageView>();
+		
+			for(int i = 0; i < getImageList().size(); i++) {
+				if(!iv.equals(getImageList().get(i))) {
+					otherImages.add(getImageList().get(i));
+				}
+			}
+			
+			for(int i = 0; i < otherImages.size(); i++) {
+				if(iv.getBoundsInParent().intersects(otherImages.get(i).getBoundsInParent())) {
+					//System.out.print("collision!\n");
+					((ImageView)(mouseEvent.getSource())).setTranslateX(this.orgTranslateX);
+					((ImageView)(mouseEvent.getSource())).setTranslateY(this.orgTranslateY);
+				}
+			}
+		}
 	}
 	
 	
