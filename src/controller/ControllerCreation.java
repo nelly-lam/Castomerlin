@@ -60,6 +60,7 @@ public class ControllerCreation{
 	@FXML private Rectangle planCuisine;
 	
 	@FXML private ImageView frame;
+	@FXML private Label indication;
 	
 	//pour dessiner un liseret rouge sur l'objet courant
 	private Rectangle objetSelectionne;
@@ -331,6 +332,9 @@ public class ControllerCreation{
     	ImageViewOnMouseClickedEventHandler imageViewClickEvent = new ImageViewOnMouseClickedEventHandler(
 			getPane(), getImageList(), getImageListCopy(), getOrgTranslateX(), getOrgTranslateY(), getPlanCuisine());
         iv.setOnMouseClicked(imageViewClickEvent);
+        
+        indication.setTextFill(Color.color(0, 0, 0));
+        indication.setText("Vous pouvez pivoter, inverser et supprimer vos meubles avec un clic droit.");
  
     }
 
@@ -352,9 +356,10 @@ public class ControllerCreation{
             double offsetY = mouseEvent.getSceneY() - orgSceneY;
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
-            
+
             ((ImageView)(mouseEvent.getSource())).setTranslateX(newTranslateX);
             ((ImageView)(mouseEvent.getSource())).setTranslateY(newTranslateY);
+
         }
     };
 
@@ -396,6 +401,8 @@ public class ControllerCreation{
     		if(!iv.getBoundsInParent().intersects(planCuisine.getBoundsInParent())) {
     			((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
     			((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
+    			indication.setTextFill(Color.color(1, 0, 0));
+    			indication.setText("Les meubles ne doivent pas dépasser le plan!");
     		}else {
     		
     			//System.out.printf("getImageList().size() = %d\n", getImageList().size());
@@ -412,6 +419,8 @@ public class ControllerCreation{
     					//System.out.print("collision!\n");
     					((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
     					((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
+    					indication.setTextFill(Color.color(1, 0, 0));
+    					indication.setText("Les meubles ne doivent pas se chevaucher!");
     				}
     			}
     		}
