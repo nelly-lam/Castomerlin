@@ -49,6 +49,7 @@ public class ControllerCreation{
 	//pour le deplacement des objets
     private double curseurDebutX, curseurDebutY;
     private double orgTranslateX, orgTranslateY;
+	private double orgSceneX, orgSceneY;
 	
 	@FXML private Button defaire;
 	@FXML private Button refaire;
@@ -82,85 +83,6 @@ public class ControllerCreation{
 	@FXML private Button annulerEnvoie;
 	
 
-	/*********************GETTER ET SETTER**********************/
-	public double getWidth() {
-		return width;
-	}
-
-	public void setWidth(double width) {
-		this.width = width;
-	}
-
-	public double getHeight() {
-		return height;
-	}
-
-	public void setHeight(double height) {
-		this.height = height;
-	}
-	public ArrayList<ImageView> getImageList() {
-		return imageList;
-	}
-	public void setImageList(ArrayList<ImageView> imageList) {
-		this.imageList = imageList;
-	}
-	public Scene getScene() {
-		return scene;
-	}
-
-	public void setScene(Scene scene) {
-		this.scene = scene;
-	}
-
-	public Stage getStage() {
-		return stage;
-	}
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-	public void setPane(Pane pane) {
-		this.pane = pane;
-	}
-	public Pane getPane() {
-		return pane;
-	}
-	public ArrayList<ImageView> getImageListCopy() {
-		return imageListCopy;
-	}
-	
-	public void setImageListCopy(ArrayList<ImageView> imageListCopy) {
-		this.imageListCopy = imageListCopy;
-	}
-	
-	public Rectangle getObjetSelectionne() {
-		return objetSelectionne;
-	}
-	public void setObjetSelectionne(Rectangle objetSelectionne) {
-		this.objetSelectionne = objetSelectionne;
-	}
-	public ArrayList<ObjetCuisine> getListeObjetCuisine() {
-		return listeObjetCuisine;
-	}
-
-	public void setListeObjetCuisine(ArrayList<ObjetCuisine> listeObjet) {
-		this.listeObjetCuisine = listeObjet;
-	}
-
-	public double getOrgTranslateX() {
-		return orgTranslateX;
-	}
-
-	public void setOrgTranslateX(double orgTranslateX) {
-		this.orgTranslateX = orgTranslateX;
-	}
-
-	public double getOrgTranslateY() {
-		return orgTranslateY;
-	}
-
-	public void setOrgTranslateY(double orgTranslateY) {
-		this.orgTranslateY = orgTranslateY;
-	}
 	
 	/**
 	 * getObjetCuisineWithImageView() : recupere un objet a partir de son imageView
@@ -177,43 +99,9 @@ public class ControllerCreation{
 		return obj;
 	}
 	
-	
-	
-	/*****************POUR DIMENSIONNER LE PLAN DE LA CUISINE******************/
-	public int getLayoutXRectangle() { return (int) this.rectangle.getLayoutX(); }
-	public int getLayoutYRectangle() { return (int) this.rectangle.getLayoutY(); }
-	
-	public void setLayoutXRectangle(int d) {this.rectangle.setLayoutX(d);}
-	public void setLayoutYRectangle(int d) {this.rectangle.setLayoutY(d);}
-	
-	public int getHeightRectangle() { return (int) this.rectangle.getHeight(); }
-	public int getWidthRectangle() { return (int) this.rectangle.getWidth(); }
-	
-	public void setHeightRectangle(int d) {this.rectangle.setHeight(d);}
-	public void setWidthRectangle(int d) {this.rectangle.setWidth(d);}
-	
-	
-	/*****************POUR RECUPERER L'ECHELLE******************/
-	public double getEchelle() {return echelle;}
-	public void setEchelle(double echelle) {this.echelle = echelle;}
-	public void setLongueurSurPlan(String s) { this.longueurSurPlan.setText(s); }
-	public void setLargeurSurPlan(String s) { this.largeurSurPlan.setText(s); }
-	
-	public void setLayoutYMesure50cmTrait(int ord) { 
-		this.mesure50cmTrait.setStartY(ord+getLayoutYRectangle()); 
-		this.mesure50cmTrait.setEndY(ord+getLayoutYRectangle()); 
-	}
-	public void setWidthmesure50cmTrait(double width) { 
-		this.mesure50cmTrait.setStartX(this.mesure50cmTrait.getEndX()+width);
-	}
-	public void setLayoutYMesure50cm(int ord ) { this.mesure50cm.setLayoutY(ord+getLayoutYRectangle()); }
-	public void setMesure50cm(String txt) { this.mesure50cm.setText(txt); }
-	
-	
-	
 	/**
 	 * closeCurrentWindow() : ferme une fenetre qu'on recupere grace a l'emplacement d'un bouton
-	 * @param b un Button situé sur la fenetre qu'on veut fermer
+	 * @param b un Button situe sur la fenetre qu'on veut fermer
 	 */
     protected void closeCurrentWindow(Button b) {
     	Stage currentWindow = (Stage) b.getScene().getWindow();
@@ -243,15 +131,14 @@ public class ControllerCreation{
         	iv.setImage(image);
     		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/door.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	}
-    	
-    	//on ajoute la nouvelle ImageView dans la liste imageList et dans le pane
+
     	addToImageList(iv);
     	
     	//on copie la liste des objets dans la liste "copie"
     	setImageListCopy(getImageList());
     	
-    	ImageViewOnMouseClickedEventHandler ivomceh = new ImageViewOnMouseClickedEventHandler(getPane(), getImageList(), getImageListCopy());
-        iv.setOnMouseClicked(ivomceh);
+    	ImageViewOnMouseClickedEventHandler imageViewClickEvent = new ImageViewOnMouseClickedEventHandler(getPane(), getImageList(), getImageListCopy());
+        iv.setOnMouseClicked(imageViewClickEvent);
     }
     
     
@@ -262,18 +149,85 @@ public class ControllerCreation{
      */
     @FXML
     protected void ajouterObjet(MouseEvent e) throws IOException{
-    	
+		ObjetCuisine obj = null;
+		//String tex; 
+		//int sizeX, sizeY;
     	//insertion d'une ImageView dans le coin haut gauche du plan
     	ImageView iv = new ImageView();
     	iv.setLayoutX(getLayoutXRectangle()+10);
     	iv.setLayoutY(getLayoutYRectangle()+10);
-    	
-        ObjetCuisine obj = null;
         
     	@SuppressWarnings("unused")
     	Button b = ((Button)e.getSource());
-    	
-    	if(b.equals(addEvier1)) {
+		/*
+		switch(b) {
+			case addEvier1:
+				tex = "photos/evier_gris.png";
+				sizeX= 120;
+				sizeY = 60;
+				break;
+			case addEvier2:
+				tex = "photos/evier_inox.png";
+				sizeX= 120;
+				sizeY = 60;
+				break;
+			case addEvier3:
+				tex = "photos/evier_marbre.png";
+				sizeX= 120;
+				sizeY = 60;
+				break;
+			case addEvier4:
+				tex = "photos/evier_sable.png";
+				sizeX= 120;
+				sizeY = 60;
+				break;
+			case addCounter1:
+				tex = "photos/counter_marbreBlanc.png";
+				sizeX= 60;
+				sizeY = 60;
+				break;
+			case addCounter2:
+				tex = "photos/counter_marbreNoir.png";
+				sizeX= 60;
+				sizeY = 60;
+				break;
+			case addFour1:
+				tex = "photos/four_gris.png";
+				sizeX= 70;
+				sizeY = 60;
+				break;
+			case addFour2:
+				tex = "photos/four_inox.png";
+				sizeX= 70;
+				sizeY = 60;
+				break;
+			case addFour3:
+				tex = "photos/four_marbre.png";
+				sizeX= 70;
+				sizeY = 60;
+				break;
+			case addFour4:
+				tex = "photos/four_sable.png";
+				sizeX= 70;
+				sizeY = 60;
+				break;
+			case addFrigo1:
+				tex = "photos/evier_gris.png";
+				sizeX= 60;
+				sizeY = 75;
+				break;
+		}
+		
+		Image image = new Image(tex, sizeX*getEchelle(), sizeY*getEchelle(), false, false);
+		iv.setImage(image);
+		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, tex, new Point((int)iv.getLayoutX(),
+								(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
+
+		
+		
+		*/
+
+		if(b.equals(addEvier1)) {
         	Image image = new Image("photos/evier_gris.png", 120*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/evier_gris.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
@@ -329,46 +283,57 @@ public class ControllerCreation{
     		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/frigo.jpg", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	}
 
-    	//eraseObjetSelectionne();
-    	//putObjetSelectionne(iv);
-        
-    	//on ajoute la nouvelle ImageView dans la liste imageList et dans le pane
+		
     	addToImageList(iv);
-    	//System.out.printf("size listObjetCuisine =%d\n", getListeObjetCuisine().size());
-    	
     	//on copie la liste des objets dans la liste "copie"
     	setImageListCopy(getImageList());
     	
     	//ajout de cet objet dans la liste des objets de cuisine
-    	getListeObjetCuisine().add(obj);
+		getListeObjetCuisine().add(obj);
     	
-    	//pour le deplacement
-    	ImageViewOnMousePressedEventHandler ivompeh = new ImageViewOnMousePressedEventHandler();
-    	iv.setOnMousePressed(ivompeh);
-    	
-    	ImageViewOnMouseDraggedEventHandler ivomdeh = new ImageViewOnMouseDraggedEventHandler(ivompeh.getPressedX(), ivompeh.getPressedY(), 
-    			getLayoutXRectangle(), getLayoutYRectangle(), getWidthRectangle(), getHeightRectangle(), ivompeh.getAncienDeplacementX(), ivompeh.getAncienDeplacementY());
-    	iv.setOnMouseDragged(ivomdeh);
-    	
+    	iv.setOnMousePressed(testPressEvent);
+    	iv.setOnMouseDragged(testDragEvent);
+    	//imageViewOnMouseDraggedEventHandler
+
     	//pour la suppression de l'imageView
-    	ImageViewOnMouseClickedEventHandler ivomceh = new ImageViewOnMouseClickedEventHandler(getPane(), getImageList(), getImageListCopy());
-        iv.setOnMouseClicked(ivomceh);
+    	ImageViewOnMouseClickedEventHandler imageViewClickEvent = new ImageViewOnMouseClickedEventHandler(
+			getPane(), getImageList(), getImageListCopy());
+        //iv.setOnMouseClicked(imageViewClickEvent);
         
-        iv.setOnMouseReleased(imageViewOnMouseReleasedEventHandler);
+        //iv.setOnMouseReleased(imageViewOnMouseReleasedEventHandler);
  
     }
 
+	EventHandler<MouseEvent> testPressEvent = new EventHandler<MouseEvent>(){
+        @Override
+        public void handle(MouseEvent mouseEvent) {
+            orgSceneX = mouseEvent.getSceneX();
+            orgSceneY = mouseEvent.getSceneY();
+            orgTranslateX = ((ImageView)(mouseEvent.getSource())).getTranslateX();
+            orgTranslateY = ((ImageView) (mouseEvent.getSource())).getTranslateY();
+        }
+    };
     
-    
+    EventHandler<MouseEvent> testDragEvent = new EventHandler<MouseEvent>(){
+        @Override
+        public void handle(MouseEvent mouseEvent) {
+            double offsetX = mouseEvent.getSceneX() - orgSceneX;
+            double offsetY = mouseEvent.getSceneY() - orgSceneY;
+            double newTranslateX = orgTranslateX + offsetX;
+            double newTranslateY = orgTranslateY + offsetY;
+            
+            ((ImageView)(mouseEvent.getSource())).setTranslateX(newTranslateX);
+            ((ImageView)(mouseEvent.getSource())).setTranslateY(newTranslateY);
+        }
+    };
+	/*
+	
     EventHandler<MouseEvent> imageViewOnMouseReleasedEventHandler = new EventHandler<MouseEvent>(){
     	@Override
         public void handle(MouseEvent mouseEvent) {
-            //orgSceneX = mouseEvent.getSceneX();
-            //orgSceneY = mouseEvent.getSceneY();
     		ImageView iv = (ImageView) mouseEvent.getSource();
     		
-    		/*distanceX = distance en abscisse entre le clic de la souris et le point haut gauche du rectangle
-    		correspondant a l'imageView*/
+    		// distanceX = distance en abscisse entre le clic de la souris et le point haut gauche du rectangle correspondant a l'imageView
     		double distanceX = curseurDebutX - getObjetCuisineWithImageView(iv).getHautGauche().getX();
     		double distanceY = curseurDebutY - getObjetCuisineWithImageView(iv).getHautGauche().getY();
     		
@@ -377,22 +342,12 @@ public class ControllerCreation{
     		newRectangle.setLayoutY(mouseEvent.getSceneY() - distanceY);   
             
     		getObjetCuisineWithImageView(iv).setZone(newRectangle);
-            //iv.setLayoutX((int)iv.getTranslateX());
-            //iv.setLayoutY((int)iv.getTranslateY());
-            
-            //iv.setLayoutX((int) mouseEvent.getSceneX() - (int)distanceX);
-            //iv.setLayoutY((int)mouseEvent.getSceneY() - (int)distanceY);
             
             System.out.printf("positionX de iv relache (int) = %d\n", (int)mouseEvent.getSceneX() - (int)distanceX);
             System.out.printf("positionX de iv relache (double) = %f\n", mouseEvent.getSceneX() - distanceX);
-
-            //ObjetCuisine obj = getObjetCuisineWithImageView(iv);
-            
-
     	}
     };
-    
-    
+	*/
     
     public void eraseObjetSelectionne() {
         if(getObjetSelectionne() != null) {
@@ -433,9 +388,8 @@ public class ControllerCreation{
     }
     
     
-	
 	/*
-	 * defaireObjet : annule la dernière action
+	 * defaireObjet : annule la derniï¿½re action
 	 */
     @FXML
     protected void defaireObjet() {
@@ -474,7 +428,70 @@ public class ControllerCreation{
 
 
 
+	/*****************POUR DIMENSIONNER LE PLAN DE LA CUISINE******************/
+	public int getLayoutXRectangle() { return (int) this.rectangle.getLayoutX(); }
+	public int getLayoutYRectangle() { return (int) this.rectangle.getLayoutY(); }
+	
+	public void setLayoutXRectangle(int d) {this.rectangle.setLayoutX(d);}
+	public void setLayoutYRectangle(int d) {this.rectangle.setLayoutY(d);}
+	
+	public int getHeightRectangle() { return (int) this.rectangle.getHeight(); }
+	public int getWidthRectangle() { return (int) this.rectangle.getWidth(); }
+	
+	public void setHeightRectangle(int d) {this.rectangle.setHeight(d);}
+	public void setWidthRectangle(int d) {this.rectangle.setWidth(d);}
+	
+	
+	/*****************POUR RECUPERER L'ECHELLE******************/
+	public double getEchelle() {return echelle;}
+	public void setEchelle(double echelle) {this.echelle = echelle;}
+	public void setLongueurSurPlan(String s) { this.longueurSurPlan.setText(s); }
+	public void setLargeurSurPlan(String s) { this.largeurSurPlan.setText(s); }
+	
+	public void setLayoutYMesure50cmTrait(int ord) { 
+		this.mesure50cmTrait.setStartY(ord+getLayoutYRectangle()); 
+		this.mesure50cmTrait.setEndY(ord+getLayoutYRectangle()); 
+	}
+	public void setWidthmesure50cmTrait(double width) { 
+		this.mesure50cmTrait.setStartX(this.mesure50cmTrait.getEndX()+width);
+	}
+	public void setLayoutYMesure50cm(int ord ) { this.mesure50cm.setLayoutY(ord+getLayoutYRectangle()); }
+	public void setMesure50cm(String txt) { this.mesure50cm.setText(txt); }
 
+
+	/*********************GETTER ET SETTER**********************/
+	public double getWidth() {return width;}
+	public void setWidth(double width) {this.width = width;}
+
+	public double getHeight() {return height;}
+	public void setHeight(double height) {this.height = height;}
+
+	public ArrayList<ImageView> getImageList() {return imageList;}
+	public void setImageList(ArrayList<ImageView> imageList) {this.imageList = imageList;}
+
+	public Scene getScene() {return scene;}
+	public void setScene(Scene scene) {this.scene = scene;}
+
+	public Stage getStage() {return stage;}
+	public void setStage(Stage stage) {this.stage = stage;}
+
+	public void setPane(Pane pane) {this.pane = pane;}
+	public Pane getPane() {return pane;}
+
+	public ArrayList<ImageView> getImageListCopy() {return imageListCopy;}
+	public void setImageListCopy(ArrayList<ImageView> imageListCopy) {this.imageListCopy = imageListCopy;}
+	
+	public Rectangle getObjetSelectionne() {return objetSelectionne;}
+	public void setObjetSelectionne(Rectangle objetSelectionne) {this.objetSelectionne = objetSelectionne;}
+
+	public ArrayList<ObjetCuisine> getListeObjetCuisine() {return listeObjetCuisine;}
+	public void setListeObjetCuisine(ArrayList<ObjetCuisine> listeObjet) {this.listeObjetCuisine = listeObjet;}
+
+	public double getOrgTranslateX() {return orgTranslateX;}
+	public void setOrgTranslateX(double orgTranslateX) {this.orgTranslateX = orgTranslateX;}
+
+	public double getOrgTranslateY() {return orgTranslateY;}
+	public void setOrgTranslateY(double orgTranslateY) {this.orgTranslateY = orgTranslateY;}
 
 
 

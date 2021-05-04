@@ -19,9 +19,6 @@ public class Main extends Application {
 		double width = 1280; 
 		double height = 720; 
 		
-		//System.out.printf("width %f\n", width);
-		//System.out.printf("height %f\n", height);
-		
         Pane pane = (Pane)FXMLLoader.load(getClass().getResource("kitchen_builder_homepage.xml"));
         Scene myScenePA = new Scene(pane, width, height);
 
