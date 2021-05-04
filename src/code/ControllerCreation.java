@@ -1,6 +1,5 @@
 package code;
 
-import java.awt.MouseInfo;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -298,7 +296,7 @@ public class ControllerCreation{
     	//pour la suppression de l'imageView
     	ImageViewOnMouseClickedEventHandler imageViewClickEvent = new ImageViewOnMouseClickedEventHandler(
 			getPane(), getImageList(), getImageListCopy());
-        //iv.setOnMouseClicked(imageViewClickEvent);
+        iv.setOnMouseClicked(imageViewClickEvent);
         
         //iv.setOnMouseReleased(imageViewOnMouseReleasedEventHandler);
  
