@@ -3,6 +3,8 @@ package code;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -19,22 +21,63 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
 		this.setImageListCopy(imageListCopy);
 	}
 	
+	
 	@Override
     public void handle(MouseEvent mouseEvent) {
 
         //si c'est un clic droit
     	if(mouseEvent.getButton() == MouseButton.SECONDARY) {
-    		//System.out.print("ici\n");
-        	for(int i = 0; i<imageList.size(); i++) {
-            	if(mouseEvent.getSource().equals(imageList.get(i))){
-            		ImageView iv = imageList.get(i);
-            		removeFromImageList(iv);
-            		setImageListCopy(getImageList());
-                }
-            }
+    		addChoices(mouseEvent);
          }
-         System.out.print("clic droit size ImageList = "+ imageList.size() + "\n");
     }
+	
+	
+	public void addChoices(MouseEvent e) {
+		ContextMenu contextMenu = new ContextMenu();
+		MenuItem pivoterG = new MenuItem("Pivoter à gauche");
+		MenuItem pivoterD = new MenuItem("Pivoter à droite");
+		MenuItem supprimer = new MenuItem("Supprimer");
+		MenuItem annuler = new MenuItem("Annuler");
+		contextMenu.getItems().addAll(pivoterG, pivoterD, supprimer, annuler);
+		
+		pivoterG.setOnAction(event -> { pivoterGObjet(e); });
+		pivoterD.setOnAction(event -> { pivoterDObjet(e); });
+		supprimer.setOnAction(event -> { supprimerObjet(e); });
+		annuler.setOnAction(event -> { contextMenu.hide(); });
+		
+		contextMenu.show(this.pane, e.getScreenX(), e.getScreenY());
+	}
+	
+	
+	
+	
+	public void supprimerObjet(MouseEvent mouseEvent) {
+		for(int i = 0; i<imageList.size(); i++) {
+        	if(mouseEvent.getSource().equals(imageList.get(i))){
+        		ImageView iv = imageList.get(i);
+        		removeFromImageList(iv);
+        		setImageListCopy(getImageList());
+            }
+        }
+		//System.out.print("clic droit size ImageList = "+ imageList.size() + "\n");
+	}
+	
+	
+	public void pivoterGObjet(MouseEvent mouseEvent) {
+		for(int i = 0; i<imageList.size(); i++) {
+        	if(mouseEvent.getSource().equals(imageList.get(i))){
+        		imageList.get(i).setRotate(imageList.get(i).getRotate() + 90); 
+            }
+        }
+	}
+	
+	public void pivoterDObjet(MouseEvent mouseEvent) {
+		for(int i = 0; i<imageList.size(); i++) {
+        	if(mouseEvent.getSource().equals(imageList.get(i))){
+        		imageList.get(i).setRotate(imageList.get(i).getRotate() - 90); 
+            }
+        }
+	}
 	
     /**
      * removeFromImageList() ; supprime une imageView de la liste imageList puis cette liste de la pane

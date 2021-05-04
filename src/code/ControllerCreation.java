@@ -73,6 +73,9 @@ public class ControllerCreation{
 	@FXML private Button addFour3;
 	@FXML private Button addFour4;
 	
+	@FXML private Button addPorte;
+	@FXML private Button addFenetre;
+	
 	//components de la page de sauvegarde
 	@FXML private TextField email;
 	@FXML private Button envoyer;
@@ -219,8 +222,42 @@ public class ControllerCreation{
 	
     
     /**
+     * ajouterPorteFenetre() : ajoute l'image correspondant a une porte ou une fenetre au plan
+     * @param e un MouseEvent, ici un clic de souris sur des boutons
+     */
+    @FXML
+    protected void ajouterPorteFenetre(MouseEvent e) {
+    	//insertion d'une ImageView dans le coin haut gauche du plan
+    	ImageView iv = new ImageView();
+    	iv.setLayoutX(getLayoutXRectangle());
+    	iv.setLayoutY(getLayoutYRectangle());
+    	
+    	Button b = ((Button)e.getSource());
+    	
+    	if(b.equals(addFenetre)) {
+        	Image image = new Image("photos/window.png", 100*getEchelle(), 15*getEchelle(), false, false);
+        	iv.setImage(image);
+    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/window.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
+    	}else if(b.equals(addPorte)) {
+    		Image image = new Image("photos/door.png", 70*getEchelle(), 70*getEchelle(), false, false);
+        	iv.setImage(image);
+    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/door.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
+    	}
+    	
+    	//on ajoute la nouvelle ImageView dans la liste imageList et dans le pane
+    	addToImageList(iv);
+    	
+    	//on copie la liste des objets dans la liste "copie"
+    	setImageListCopy(getImageList());
+    	
+    	ImageViewOnMouseClickedEventHandler ivomceh = new ImageViewOnMouseClickedEventHandler(getPane(), getImageList(), getImageListCopy());
+        iv.setOnMouseClicked(ivomceh);
+    }
+    
+    
+    /**
      * ajouterObjet() : ajoute l'image correspondante a l'objet qu'on veut ajouter dans le plan
-     * @param e un MouseEvent, ici un clic de souris
+     * @param e un MouseEvent, ici un clic de souris sur des boutons
      * @throws IOException
      */
     @FXML
@@ -305,16 +342,15 @@ public class ControllerCreation{
     	//ajout de cet objet dans la liste des objets de cuisine
     	getListeObjetCuisine().add(obj);
     	
-    	//pour le deplacement et la suppression de l'imageView
+    	//pour le deplacement
     	ImageViewOnMousePressedEventHandler ivompeh = new ImageViewOnMousePressedEventHandler();
     	iv.setOnMousePressed(ivompeh);
-    	
-    	//System.out.printf("getHeightRectangle() = %d\n",getHeightRectangle());
     	
     	ImageViewOnMouseDraggedEventHandler ivomdeh = new ImageViewOnMouseDraggedEventHandler(ivompeh.getPressedX(), ivompeh.getPressedY(), 
     			getLayoutXRectangle(), getLayoutYRectangle(), getWidthRectangle(), getHeightRectangle(), ivompeh.getAncienDeplacementX(), ivompeh.getAncienDeplacementY());
     	iv.setOnMouseDragged(ivomdeh);
     	
+    	//pour la suppression de l'imageView
     	ImageViewOnMouseClickedEventHandler ivomceh = new ImageViewOnMouseClickedEventHandler(getPane(), getImageList(), getImageListCopy());
         iv.setOnMouseClicked(ivomceh);
         

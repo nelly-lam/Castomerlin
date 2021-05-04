@@ -86,7 +86,7 @@
                   										<Font size="9.0" />
                										</font>
                                                 </Label>
-                                                <Button fx:id="addEvier1" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="57.0" mnemonicParsing="false" text="+" />
+                                                <Button fx:id="addEvier1" onMouseClicked="#ajouterObjet" layoutX="33.0" layoutY="57.0" mnemonicParsing="false" text="ajouter" />
                                              </children>
                                           </Pane>
                                           <ImageView fitHeight="125.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
@@ -406,8 +406,9 @@
                </children>
             </Pane>
          	<Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#bababa" height="449.0" layoutX="63.0" layoutY="163.0" stroke="BLACK" strokeType="INSIDE" width="894.0" />
-         </children>
-         	<Label fx:id="largeurSurPlan" layoutX="-12.0" layoutY="240.0" prefHeight="17.0" prefWidth="123.0" rotate="-90.0" text="largeur">
+         	<Button fx:id="addPorte" onMouseClicked="#ajouterPorteFenetre" layoutX="1038.0" layoutY="613.0" mnemonicParsing="false" text="Ajout porte" />
+            <Button fx:id="addFenetre" onMouseClicked="#ajouterPorteFenetre" layoutX="1148.0" layoutY="613.0" mnemonicParsing="false" text="Ajout fenêtre" />
+            <Label fx:id="largeurSurPlan" layoutX="-12.0" layoutY="240.0" prefHeight="17.0" prefWidth="123.0" rotate="-90.0" text="largeur">
                <font>
                   <Font size="9.0" />
                </font>
@@ -425,6 +426,7 @@
                   <Font size="9.0" />
                </font>
             </Label>
+         </children>
       </Pane>
    </children>
 </Pane>
