@@ -9,26 +9,29 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 
 public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEvent>{
 	private ArrayList<ImageView> imageList, imageListCopy;
 	private Pane pane;
+	private boolean isFlipped;
 	
 	
 	public ImageViewOnMouseClickedEventHandler(Pane p, ArrayList<ImageView> imageList, ArrayList<ImageView> imageListCopy) {
 		this.pane = p;
 		this.imageList = imageList;
 		this.setImageListCopy(imageListCopy);
+		this.isFlipped = false;
 	}
 	
 	
 	@Override
     public void handle(MouseEvent mouseEvent) {
-
         //si c'est un clic droit
     	if(mouseEvent.getButton() == MouseButton.SECONDARY) {
     		addChoices(mouseEvent);
-         }
+        }
     }
 	
 	
@@ -36,12 +39,14 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
 		ContextMenu contextMenu = new ContextMenu();
 		MenuItem pivoterG = new MenuItem("Pivoter à gauche");
 		MenuItem pivoterD = new MenuItem("Pivoter à droite");
+		MenuItem retourner = new MenuItem("Retourner");
 		MenuItem supprimer = new MenuItem("Supprimer");
 		MenuItem annuler = new MenuItem("Annuler");
-		contextMenu.getItems().addAll(pivoterG, pivoterD, supprimer, annuler);
+		contextMenu.getItems().addAll(pivoterG, pivoterD, retourner, supprimer, annuler);
 		
 		pivoterG.setOnAction(event -> { pivoterGObjet(e); });
 		pivoterD.setOnAction(event -> { pivoterDObjet(e); });
+		retourner.setOnAction(event -> { flipObject(e); });
 		supprimer.setOnAction(event -> { supprimerObjet(e); });
 		annuler.setOnAction(event -> { contextMenu.hide(); });
 		
@@ -75,6 +80,24 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
 		for(int i = 0; i<imageList.size(); i++) {
         	if(mouseEvent.getSource().equals(imageList.get(i))){
         		imageList.get(i).setRotate(imageList.get(i).getRotate() - 90); 
+            }
+        }
+	}
+	
+	
+	public void flipObject(MouseEvent mouseEvent) {
+		for(int i = 0; i<imageList.size(); i++) {
+        	if(mouseEvent.getSource().equals(imageList.get(i))){
+        		if(!isFlipped) {
+        			Translate flipTranslation = new Translate(0, imageList.get(i).getImage().getHeight());
+        			Rotate flipRotation = new Rotate(180,Rotate.X_AXIS);
+        			imageList.get(i).getTransforms().addAll(flipTranslation,flipRotation);
+        			imageList.get(i).setRotate(180);
+        			isFlipped = true;
+        		}else if(isFlipped){
+        			imageList.get(i).setRotate(0); 
+        			isFlipped = false;
+        		}
             }
         }
 	}
