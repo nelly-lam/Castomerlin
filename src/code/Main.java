@@ -12,6 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Bienvenue chez CastoMerlin");
         
+        /*dimension de la fenetre*/
 		double width = 1280; 
 		double height = 720; 
 		

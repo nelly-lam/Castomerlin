@@ -42,7 +42,11 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
         }
     }
 	
-	
+	/**
+	 * addChoices() : ajoute un contextMenu qui affiche les options de pivot, 
+	 * inversement et suppression d'une image
+	 * @param e un MouseEvent
+	 */
 	public void addChoices(MouseEvent e) {
 		ContextMenu contextMenu = new ContextMenu();
 		MenuItem pivoterG = new MenuItem("Pivoter à gauche");
@@ -52,31 +56,20 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
 		MenuItem annuler = new MenuItem("Annuler");
 		contextMenu.getItems().addAll(pivoterG, pivoterD, retourner, supprimer, annuler);
 		
-		pivoterG.setOnAction(event -> { pivoterGObjet(e); });
-		pivoterD.setOnAction(event -> { pivoterDObjet(e); });
-		retourner.setOnAction(event -> { flipObject(e); });
-		supprimer.setOnAction(event -> { supprimerObjet(e); });
+		pivoterG.setOnAction(event -> { rotateLeftFurniture(e); });
+		pivoterD.setOnAction(event -> { rotateRightFurniture(e); });
+		retourner.setOnAction(event -> { flipFurniture(e); });
+		supprimer.setOnAction(event -> { removeFurniture(e); });
 		annuler.setOnAction(event -> { contextMenu.hide(); });
 		
 		contextMenu.show(this.pane, e.getScreenX(), e.getScreenY());
 	}
 	
-	
-	
-	
-	public void supprimerObjet(MouseEvent mouseEvent) {
-		for(int i = 0; i<imageList.size(); i++) {
-        	if(mouseEvent.getSource().equals(imageList.get(i))){
-        		ImageView iv = imageList.get(i);
-        		removeFromImageList(iv);
-        		setImageListCopy(getImageList());
-            }
-        }
-		//System.out.print("clic droit size ImageList = "+ imageList.size() + "\n");
-	}
-	
-	
-	public void pivoterGObjet(MouseEvent mouseEvent) {
+	/**
+	 * rotateLeftFurniture() : pivote vers la gauche le meuble selectionne
+	 * @param mouseEvent un MouseEvent
+	 */
+	public void rotateLeftFurniture(MouseEvent mouseEvent) {
 		for(int i = 0; i<imageList.size(); i++) {
         	if(mouseEvent.getSource().equals(imageList.get(i))){
         		imageList.get(i).setRotate(imageList.get(i).getRotate() + 90); 
@@ -85,7 +78,11 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
 		collisionPlan(mouseEvent);
 	}
 	
-	public void pivoterDObjet(MouseEvent mouseEvent) {
+	/**
+	 * rotateRightFurniture() : pivote vers la droite le meuble selectionne
+	 * @param mouseEvent un MouseEvent
+	 */
+	public void rotateRightFurniture(MouseEvent mouseEvent) {
 		for(int i = 0; i<imageList.size(); i++) {
         	if(mouseEvent.getSource().equals(imageList.get(i))){
         		imageList.get(i).setRotate(imageList.get(i).getRotate() - 90); 
@@ -95,34 +92,11 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
 	}
 	
 	
-	public void collisionPlan(MouseEvent mouseEvent) {
-		ImageView iv = (ImageView)(mouseEvent.getSource());
-		if(!iv.getBoundsInParent().intersects(planCuisine.getBoundsInParent())) {
-			((ImageView)(mouseEvent.getSource())).setTranslateX(this.orgTranslateX);
-			((ImageView)(mouseEvent.getSource())).setTranslateY(this.orgTranslateY);
-		}else {
-		
-			//System.out.printf("getImageList().size() = %d\n", getImageList().size());
-			ArrayList<ImageView> otherImages = new ArrayList<ImageView>();
-		
-			for(int i = 0; i < getImageList().size(); i++) {
-				if(!iv.equals(getImageList().get(i))) {
-					otherImages.add(getImageList().get(i));
-				}
-			}
-			
-			for(int i = 0; i < otherImages.size(); i++) {
-				if(iv.getBoundsInParent().intersects(otherImages.get(i).getBoundsInParent())) {
-					//System.out.print("collision!\n");
-					((ImageView)(mouseEvent.getSource())).setTranslateX(this.orgTranslateX);
-					((ImageView)(mouseEvent.getSource())).setTranslateY(this.orgTranslateY);
-				}
-			}
-		}
-	}
-	
-	
-	public void flipObject(MouseEvent mouseEvent) {
+	/**
+	 * flipFurniture() : retourne le meuble selectionne
+	 * @param mouseEvent un MouseEvent
+	 */
+	public void flipFurniture(MouseEvent mouseEvent) {
 		for(int i = 0; i<imageList.size(); i++) {
         	if(mouseEvent.getSource().equals(imageList.get(i))){
         		if(!isFlipped) {
@@ -139,8 +113,55 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
         }
 	}
 	
+	/**
+	 * supprimerObjet() : supprime le meuble selectionne 
+	 * de la liste des meubles ajoutes par l'utilisateur
+	 * @param mouseEvent un MouseEvent
+	 */
+	public void removeFurniture(MouseEvent mouseEvent) {
+		for(int i = 0; i<imageList.size(); i++) {
+        	if(mouseEvent.getSource().equals(imageList.get(i))){
+        		ImageView iv = imageList.get(i);
+        		removeFromImageList(iv);
+        		setImageListCopy(getImageList());
+            }
+        }
+	}
+	
+	
+	/**
+	 * collisionPlan() : verifie si le meuble selectionne chevauche d'autres meubles,
+	 * si oui le replace a son ancienne position
+	 * @param mouseEvent un MouseEvent
+	 */
+	public void collisionPlan(MouseEvent mouseEvent) {
+		ImageView iv = (ImageView)(mouseEvent.getSource());
+		
+		if(!iv.getBoundsInParent().intersects(planCuisine.getBoundsInParent())) {
+			((ImageView)(mouseEvent.getSource())).setTranslateX(this.orgTranslateX);
+			((ImageView)(mouseEvent.getSource())).setTranslateY(this.orgTranslateY);
+		}else {
+		
+			ArrayList<ImageView> otherImages = new ArrayList<ImageView>();
+		
+			for(int i = 0; i < getImageList().size(); i++) {
+				if(!iv.equals(getImageList().get(i))) {
+					otherImages.add(getImageList().get(i));
+				}
+			}
+			
+			for(int i = 0; i < otherImages.size(); i++) {
+				if(iv.getBoundsInParent().intersects(otherImages.get(i).getBoundsInParent())) {
+					((ImageView)(mouseEvent.getSource())).setTranslateX(this.orgTranslateX);
+					((ImageView)(mouseEvent.getSource())).setTranslateY(this.orgTranslateY);
+				}
+			}
+		}
+	}
+	
     /**
-     * removeFromImageList() ; supprime une imageView de la liste imageList puis cette liste de la pane
+     * removeFromImageList() ; supprime un meuble de la liste des meubles ajoutes 
+     * par l'utilisateur
      * @param iv une ImageView
      */
     public void removeFromImageList(ImageView iv) {
@@ -149,25 +170,12 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
     	this.pane.getChildren().addAll(imageList);
     }
 
-	/**
-	 * @return the imageList
-	 */
-	public ArrayList<ImageView> getImageList() {
-		return imageList;
-	}
+    
+    
+    /*********************GETTER ET SETTER**********************/
+	public ArrayList<ImageView> getImageList() {return imageList;}
+	public void setImageList(ArrayList<ImageView> imageList) {this.imageList = imageList;}
 
-	/**
-	 * @param imageList the imageList to set
-	 */
-	public void setImageList(ArrayList<ImageView> imageList) {
-		this.imageList = imageList;
-	}
-
-	public ArrayList<ImageView> getImageListCopy() {
-		return imageListCopy;
-	}
-
-	public void setImageListCopy(ArrayList<ImageView> imageListCopy) {
-		this.imageListCopy = imageListCopy;
-	}
+	public ArrayList<ImageView> getImageListCopy() {return imageListCopy;}
+	public void setImageListCopy(ArrayList<ImageView> imageListCopy) {this.imageListCopy = imageListCopy;}
 }

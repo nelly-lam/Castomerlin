@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class ControllerPageAccueil{
@@ -23,7 +22,7 @@ public class ControllerPageAccueil{
 	private double echelle;
 	
 	/*components de la page d'accueil*/
-	@FXML private Button commencer;
+	@FXML private Button begin;
 	
 	/*components de la page des dimensions*/
 	@FXML private TextField longueur;
@@ -33,21 +32,25 @@ public class ControllerPageAccueil{
 	
 	private ControllerCreation cc;
 	
-	private Scene scene;
-	
-	@FXML private Rectangle rectangle;
+	private Scene scenePageCreation;
 	
 	/*attributs qui determinent les dimensions du plan (rectangle)*/
-	private int LONG;
-	private int LARG;
+	private int widthPlan;
+	private int heightPlan;
 
-	//attributs qui definissent la taille des fenetres
+	/*attributs qui definissent la taille des fenetres*/
 	private double widthFrame = 1280;
 	private double heightFrame = 720;
 	
 	
 	
-	
+	/**
+	 * launchWindow() : ouvre une autre fenetre
+	 * @param file le nom du fichier qu'on veut charger dans cette nouvelle fenetre
+	 * @param title le titre de la nouvelle fenetre
+	 * @return le stage de la nouvelle fenetre
+	 * @throws IOException
+	 */
 	public Stage launchWindow(String file, String title) throws IOException {
 		Pane hboxD = (Pane)FXMLLoader.load(getClass().getResource(file));
 		
@@ -60,32 +63,35 @@ public class ControllerPageAccueil{
         return stageD;
 	}
 
-	
+	/**
+	 * closeCurrentWindow() : ferme la fenetre qui contient le bouton passe en parametre
+	 * @param b Button
+	 */
     protected void closeCurrentWindow(Button b) {
     	Stage currentWindow = (Stage) b.getScene().getWindow();
         currentWindow.close();
     }
     
     /**
-     * commencer() : redirige vers une autre fenêtre qui recupere les dimensions
+     * begin() : redirige vers une autre fenêtre qui recupere les dimensions
      * @throws IOException 
      */
     @FXML
-    protected void commencer() throws IOException {
+    protected void begin() throws IOException {
 		launchWindow("/code/kitchen_builder_dimensions.xml", "CastoMerlin - dimension de votre cuisine");
-		closeCurrentWindow(commencer);
+		closeCurrentWindow(begin);
     }
     
     
     /**
-     * creer() : ouvre une fenetre de creation avec un plan de cuisine defini par
+     * createPlan() : ouvre une fenetre de creation avec un plan de cuisine defini par
      * les dimensions valides donnees par l'utilisateur
      * dimensions valides : un nombre obligatoire pour la longueur et la largeur,
      * dimensions en cm
      * @throws IOException 
      */
     @FXML
-    protected void creerPlan() throws IOException {
+    protected void createPlan() throws IOException {
     	if(longueur.getText().trim().isEmpty() && largeur.getText().trim().isEmpty()) {
     		information.setText("Veuillez rentrer une longeur et une largeur");
     	} else if(longueur.getText().trim().isEmpty()) {
@@ -142,37 +148,34 @@ public class ControllerPageAccueil{
         		/*Si la longueur finale ne depasse pas la limite fixee par longueurMaxPlan*/
         		if(largeurMaxPlan * rapportLongueurLargeur <= longueurMaxPlan) {
         			setEchelle(largeurMaxPlan / (double) largeurFictive);
-        			setLONG((int) (largeurMaxPlan * rapportLongueurLargeur));
-        			setLARG(largeurMaxPlan);
+        			setWidthPlan((int) (largeurMaxPlan * rapportLongueurLargeur));
+        			setHeightPlan(largeurMaxPlan);
         		}else {
         			setEchelle(longueurMaxPlan / (double) longueurFictive);
-        			setLONG(longueurMaxPlan);
-        			setLARG((int) (longueurMaxPlan * rapportLargeurLongueur));
+        			setWidthPlan(longueurMaxPlan);
+        			setHeightPlan((int) (longueurMaxPlan * rapportLargeurLongueur));
         			
         		}
         		
         		/*ecriture des dimensions sur le plan de cuisine*/ 
         		ca.setLongueurSurPlan(longueurSurPlanTxt);
         		ca.setLargeurSurPlan(largeurSurPlanTxt);
-        		ca.setLayoutYMesure50cmTrait(getLARG()+15); //on place l'echelle en dessous du plan
+        		ca.setLayoutYMesure50cmTrait(getHeightPlan()+15); //on place l'echelle en dessous du plan
         		ca.setWidthmesure50cmTrait(50*getEchelle()); //on determine la taille sur 50cm
-        		ca.setLayoutYMesure50cm(getLARG()+10); //on place le texte de l'echelle en dessous du plan
+        		ca.setLayoutYMesure50cm(getHeightPlan()+10); //on place le texte de l'echelle en dessous du plan
         		
         		/*on change les dimensions d'ecran du plan de cuisine*/
-        		ca.setHeightPlanCuisine(getLARG());
-        		ca.setWidthPlanCuisine(getLONG());
+        		ca.setHeightPlanCuisine(getHeightPlan());
+        		ca.setWidthPlanCuisine(getWidthPlan());
         		ca.setEchelle(getEchelle());
         		
-        		//ca.setHeightCollisionPlan(getEchelle());
-        		//ca.setWidthCollisionPlan(getEchelle());
-        		
-                scene = new Scene(pane, widthFrame, heightFrame);
+                scenePageCreation = new Scene(pane, widthFrame, heightFrame);
                 
                 ca.setPane(pane);
-                ca.setScene(scene);
+                ca.setScene(scenePageCreation);
                 ca.setStage(stageD);
                 
-                stageD.setScene(scene);
+                stageD.setScene(scenePageCreation);
                 stageD.show();
         		closeCurrentWindow(creer);
     		}
@@ -191,18 +194,19 @@ public class ControllerPageAccueil{
     }
 
     
-	/*****************GETTER ET SETTER*******************/
-	public int getLONG() {return LONG;}
-	public void setLONG(int lONG) {LONG = lONG;}
 	
-	public int getLARG() {return LARG;}
-	public void setLARG(int lARG) {LARG = lARG;}
+	/*****************GETTER ET SETTER*******************/
+	public int getWidthPlan() {return widthPlan;}
+	public void setWidthPlan(int lONG) {widthPlan = lONG;}
+	
+	public int getHeightPlan() {return heightPlan;}
+	public void setHeightPlan(int lARG) {heightPlan = lARG;}
 	
 	public ControllerCreation getCc() {return cc;}
 	public void setCc(ControllerCreation cc) {this.cc = cc;}
 	
-	public Scene getScene() {return scene;}
-	public void setScene(Scene scene) {this.scene = scene;}
+	public Scene getScenePageCreation() {return scenePageCreation;}
+	public void setScenePageCreation(Scene scene) {this.scenePageCreation = scene;}
 	
 	public double getEchelle() {return echelle;}
 	public void setEchelle(double echelle) {this.echelle = echelle;}
