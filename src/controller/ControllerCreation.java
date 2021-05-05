@@ -22,19 +22,15 @@ import javafx.stage.Stage;
 
 public class ControllerCreation{
 
-	//enregistre les objets ajoutes
+	/*Pour enregistrer les meubles ajoutes*/
 	private ArrayList<ImageView> imageList = new ArrayList<ImageView>();
-	//copie de la liste des objets ajoutes pour les actions refaire et defaire
+	
+	/*Copie de la liste des meubles ajoutes pour les actions refaire et defaire*/
 	private ArrayList<ImageView> imageListCopy = new ArrayList<ImageView>();
-
-	//private ArrayList<Rectangle> furnitureHitboxList = new ArrayList<Rectangle>();
 	
-	//private ArrayList<ObjetCuisine> listeObjetCuisine = new ArrayList<ObjetCuisine>();
-	
+	/*Pour l'affichage de l'echelle sur le plan de la cuisine*/
 	private double echelle;
-	//@FXML private Line longueurSurPlanTrait;
 	@FXML private Label longueurSurPlan;
-	//@FXML private Line largeurSurPlanTrait;
 	@FXML private Label largeurSurPlan;
 	@FXML private Line mesure50cmTrait;
 	@FXML private Label mesure50cm;
@@ -45,8 +41,7 @@ public class ControllerCreation{
 	private double width;
 	private double height;
 	
-	//pour le deplacement des objets
-    //private double curseurDebutX, curseurDebutY;
+	/*Pour le deplacement des objets*/
     private double orgTranslateX, orgTranslateY;
 
 	private double orgSceneX, orgSceneY;
@@ -56,16 +51,18 @@ public class ControllerCreation{
 	@FXML private Button sauvegarder;
 	@FXML private Button recommencer;
 	
-	//le plan sur lequel on concoit la cuisine
+	/*Le plan sur lequel on concoit la cuisine*/
 	@FXML private Rectangle planCuisine;
 	
 	@FXML private ImageView frame;
+	
+	/*Pour laisser un message a l'utilisateur*/
 	@FXML private Label indication;
 	
-	//pour dessiner un liseret rouge sur l'objet courant
+	/*pour dessiner un liseret rouge sur l'objet courant*/
 	private Rectangle objetSelectionne;
 	
-	//boutons du mobilier de cuisine
+	/*boutons du mobilier de cuisine*/
 	@FXML private Button addEvier1;
 	@FXML private Button addEvier2;
 	@FXML private Button addEvier3;
@@ -81,27 +78,16 @@ public class ControllerCreation{
 	@FXML private Button addPorte;
 	@FXML private Button addFenetre;
 	
-	//components de la page de sauvegarde
+	/*components de la page de sauvegarde*/
 	@FXML private TextField email;
 	@FXML private Button envoyer;
 	@FXML private Button annulerEnvoie;
 	
-
 	
-	/**
-	 * getObjetCuisineWithImageView() : recupere un objet a partir de son imageView
-	 * @param iv
-	 * @return
-	 */
-	/*public ObjetCuisine getObjetCuisineWithImageView(ImageView iv) {
-		ObjetCuisine obj = null;
-		for(int i = 0; i < getListeObjetCuisine().size(); i++) {
-			if(getListeObjetCuisine().get(i).getIv() == iv) {
-					obj = getListeObjetCuisine().get(i);
-			}
-		}
-		return obj;
-	}*/
+	
+	
+
+	/***********************************METHODES*********************************/
 	
 	/**
 	 * closeCurrentWindow() : ferme une fenetre qu'on recupere grace a l'emplacement d'un bouton
@@ -114,12 +100,12 @@ public class ControllerCreation{
 	
     
     /**
-     * ajouterPorteFenetre() : ajoute l'image correspondant a une porte ou une fenetre au plan
+     * ajouterPorteFenetre() : ajoute l'image correspondant a une porte ou a une fenetre au plan,
+     * insertion de l'imageView dans le coin haut gauche du planCuisine
      * @param e un MouseEvent, ici un clic de souris sur des boutons
      */
     @FXML
     protected void ajouterPorteFenetre(MouseEvent e) {
-    	//insertion d'une ImageView dans le coin haut gauche du plan
     	ImageView iv = new ImageView();
     	iv.setLayoutX(getLayoutXPlanCuisine());
     	iv.setLayoutY(getLayoutYPlanCuisine());
@@ -129,11 +115,9 @@ public class ControllerCreation{
     	if(b.equals(addFenetre)) {
         	Image image = new Image("photos/window.png", 100*getEchelle(), 15*getEchelle(), false, false);
         	iv.setImage(image);
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/window.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	}else if(b.equals(addPorte)) {
     		Image image = new Image("photos/door.png", 70*getEchelle(), 70*getEchelle(), false, false);
         	iv.setImage(image);
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/door.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	}
 
     	addToImageList(iv);
@@ -161,7 +145,7 @@ public class ControllerCreation{
 	@SuppressWarnings("null")
 	@FXML
     protected void ajouterObjet(MouseEvent e) throws IOException{
-		//ObjetCuisine obj = null;
+
 		//String tex; 
 		//int sizeX, sizeY;
 		
@@ -169,12 +153,6 @@ public class ControllerCreation{
     	ImageView iv = new ImageView();
     	iv.setLayoutX(getLayoutXPlanCuisine()+10);
     	iv.setLayoutY(getLayoutYPlanCuisine()+10);
-    	
-    	//implementation d'un rectangle de la meme dimension et position que l'imageView iv
-    	//alias de l'imageView
-    	//Rectangle hitbox = new Rectangle();
-    	//hitbox.setX(getLayoutXPlanCuisine()+10);
-    	//hitbox.setY(getLayoutYPlanCuisine()+10);
         
     	@SuppressWarnings("unused")
     	Button b = ((Button)e.getSource());
@@ -239,105 +217,78 @@ public class ControllerCreation{
 		
 		Image image = new Image(tex, sizeX*getEchelle(), sizeY*getEchelle(), false, false);
 		iv.setImage(image);
-		obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, tex, new Point((int)iv.getLayoutX(),
-								(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
-		
-		
 		*/
 
 		if(b.equals(addEvier1)) {
         	Image image = new Image("photos/evier_gris.png", 120*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(120*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/evier_gris.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	
     	}else if(b.equals(addEvier2)) {
         	Image image = new Image("photos/evier_inox.png", 120*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(120*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/evier_inox.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	
     	}else if(b.equals(addEvier3)) {
         	Image image = new Image("photos/evier_marbre.png", 120*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(120*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/evier_marbre.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addEvier4)) {
         	Image image = new Image("photos/evier_sable.png", 120*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(120*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/evier_sable.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addCounter1)) {
         	Image image = new Image("photos/counter_marbreBlanc.png", 60*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(60*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/counter_marbreBlanc.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addCounter2)) {
         	Image image = new Image("photos/counter_marbreNoir.png", 60*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(60*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/counter_marbreNoir.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addFour1)) {
         	Image image = new Image("photos/four_gris.png", 70*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(70*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/four_gris.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addFour2)) {
         	Image image = new Image("photos/four_inox.png", 70*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(70*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/four_inox.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addFour3)) {
         	Image image = new Image("photos/four_marbre.png",70*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(70*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/four_marbre.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addFour4)) {
         	Image image = new Image("photos/four_sable.png", 70*getEchelle(), 60*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(70*getEchelle(), 60*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/four_sable.png", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
 
     	}else if(b.equals(addFrigo1)) {
         	Image image = new Image("photos/frigo.jpg", 60*getEchelle(), 75*getEchelle(), false, false);
         	iv.setImage(image);
-        	//hitbox = new Rectangle(60*getEchelle(), 75*getEchelle());
-    		//obj = new ObjetCuisine(getListeObjetCuisine().size(), iv, "photos/frigo.jpg", new Point((int)iv.getLayoutX(),(int)iv.getLayoutY()), (int) image.getWidth(), (int) image.getHeight());
     	}
-
 		
     	addToImageList(iv);
-    	//getFurnitureHitboxList().add(hitbox);
-    	//this.pane.getChildren().addAll(hitbox);
     	
     	//on copie la liste des objets dans la liste "copie"
     	setImageListCopy(getImageList());
-    	
-    	//ajout de cet objet dans la liste des objets de cuisine
-		//getListeObjetCuisine().add(obj);
-    	
+    	    	
+    	/*Pour le deplacement des meubles*/
     	iv.setOnMousePressed(pressEvent);
     	iv.setOnMouseDragged(dragEvent);
         iv.setOnMouseReleased(releaseEvent);
         
-    	//pour la suppression de l'imageView
+        /*Pour la rotation et suppression des meubles*/
     	ImageViewOnMouseClickedEventHandler imageViewClickEvent = new ImageViewOnMouseClickedEventHandler(
 			getPane(), getImageList(), getImageListCopy(), getOrgTranslateX(), getOrgTranslateY(), getPlanCuisine());
         iv.setOnMouseClicked(imageViewClickEvent);
         
+        /*Pour informer l'utilisateur*/
         indication.setTextFill(Color.color(0, 0, 0));
         indication.setText("Vous pouvez pivoter, inverser et supprimer vos meubles avec un clic droit.");
  
     }
 
+	/**
+	 * pressEvent : controleur
+	 */
 	EventHandler<MouseEvent> pressEvent = new EventHandler<MouseEvent>(){
         @Override
         public void handle(MouseEvent mouseEvent) {
@@ -346,9 +297,14 @@ public class ControllerCreation{
             orgTranslateX = ((ImageView)(mouseEvent.getSource())).getTranslateX();
             orgTranslateY = ((ImageView) (mouseEvent.getSource())).getTranslateY();
             
+            putImageViewInFront(((ImageView)(mouseEvent.getSource())));
+            
         }
     };
     
+    /*
+     * dragEvent : controleur
+     */
     EventHandler<MouseEvent> dragEvent = new EventHandler<MouseEvent>(){
         @Override
         public void handle(MouseEvent mouseEvent) {
@@ -363,49 +319,29 @@ public class ControllerCreation{
         }
     };
 
-	
+	/*
+	 * releaseEvent : controleur qui gere la collision des meubles entre-eux
+	 * et des meubles avec le plan
+	 * - Les meubles ne doivent pas se chevaucher
+	 * - Les meubles ne peuvent pas depasser le cadre du plan de cuisine
+	 */
     EventHandler<MouseEvent> releaseEvent = new EventHandler<MouseEvent>(){
     	@Override
         public void handle(MouseEvent mouseEvent) {
     		ImageView iv = (ImageView) mouseEvent.getSource();
-    		
-    		// distanceX = distance en abscisse entre le clic de la souris et le point haut gauche du rectangle correspondant a l'imageView
-    		//double distanceX = orgSceneX - getObjetCuisineWithImageView(iv).getHautGauche().getX();
-    		//double distanceY = orgSceneY - getObjetCuisineWithImageView(iv).getHautGauche().getY();
-    		
-    		//double distanceX = orgSceneX - iv.getLayoutX();
-    		//double distanceY = orgSceneY - iv.getLayoutY();
-    		
-    		//Rectangle newRectangle = new Rectangle(iv.getImage().getWidth(),iv.getImage().getHeight());
-    		//newRectangle.setX(mouseEvent.getSceneX() - distanceX);
-    		//newRectangle.setY(mouseEvent.getSceneY() - distanceY);   
-            
-    		//addToFurnitureHitboxList(newRectangle);
-    		
-    		//getObjetCuisineWithImageView(iv).setZone(newRectangle);
-            
-    		//Shape.intersect(newRectangle, static_bloc);
-    		/*
-    		for(int i = 0; i < getFurnitureHitboxList().size(); i++) {
-    			if (newRectangle.getBoundsInLocal().intersects(getFurnitureHitboxList().get(i).getBoundsInLocal())) {
-    				((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
-    	            ((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
-    			}else {
-    				//((ImageView)(mouseEvent.getSource())).setLayoutX(newRectangle.getX());
-    				//((ImageView)(mouseEvent.getSource())).setLayoutY(newRectangle.getY());
-    				getFurnitureHitboxList().get(i).setLayoutX(newRectangle.getX());
-    				getFurnitureHitboxList().get(i).setLayoutY(newRectangle.getY());
-    			}
-    		}*/
 
     		if(!iv.getBoundsInParent().intersects(planCuisine.getBoundsInParent())) {
+    			
+    			/* Si l'imageView et le plan de la cuisine ne se chevauchent plus,
+    			 * on replace l'imageView a sa position initiale
+    			 */
     			((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
     			((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
     			indication.setTextFill(Color.color(1, 0, 0));
     			indication.setText("Les meubles ne doivent pas dépasser le plan!");
     		}else {
-    		
-    			//System.out.printf("getImageList().size() = %d\n", getImageList().size());
+    			
+    			/*Pour repertorier les imageView autre que celui qu'on regarde*/
     			ArrayList<ImageView> otherImages = new ArrayList<ImageView>();
     		
     			for(int i = 0; i < getImageList().size(); i++) {
@@ -416,9 +352,13 @@ public class ControllerCreation{
     			
     			for(int i = 0; i < otherImages.size(); i++) {
     				if(iv.getBoundsInParent().intersects(otherImages.get(i).getBoundsInParent())) {
-    					//System.out.print("collision!\n");
+    					
+    					/*Si l'imageView et une autre image se chevauchent, 
+    					 * on replace l'imageView a sa position initiale*/
     					((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
     					((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
+    					
+    					/*Pour laisser un message aux utilisateurs*/
     					indication.setTextFill(Color.color(1, 0, 0));
     					indication.setText("Les meubles ne doivent pas se chevaucher!");
     				}
@@ -427,13 +367,19 @@ public class ControllerCreation{
     	}
     };
     
-    
+    /**
+     * 
+     */
     public void eraseObjetSelectionne() {
         if(getObjetSelectionne() != null) {
     		this.pane.getChildren().remove(getObjetSelectionne());
     	}
     }
     
+    /**
+     * 
+     * @param iv
+     */
     public void putObjetSelectionne(ImageView iv) {
     	if(getObjetSelectionne() != null) {
     		this.pane.getChildren().remove(getObjetSelectionne());
@@ -447,7 +393,8 @@ public class ControllerCreation{
     }
     
     /**
-     * addToImageList() : ajoute une imageView dans la liste imageList puis cette liste dans le pane
+     * addToImageList() : ajoute une imageView dans la liste imageList 
+     * puis cette liste dans le pane
      * @param iv une ImageView
      */
     public void addToImageList(ImageView iv) {
@@ -457,7 +404,8 @@ public class ControllerCreation{
     }
     
     /**
-     * removeFromImageList() ; supprime une imageView de la liste imageList puis cette liste de la pane
+     * removeFromImageList() : supprime une imageView de la liste imageList 
+     * puis cette liste de la pane
      * @param iv une ImageView
      */
     public void removeFromImageList(ImageView iv) {
@@ -467,24 +415,16 @@ public class ControllerCreation{
     }
     
     /**
-     * 
-     * @param hitbox
+     * putImageViewInFront() : met une imageView devant tous les autres components
+     * qui sont ajoutes a la pane de la fenetre de creation
+     * @param imageView l'imageView qu'on veut mettre en premier plan
      */
-    /*public void addToFurnitureHitboxList(Rectangle hitbox) {
-    	this.pane.getChildren().removeAll(furnitureHitboxList);
-    	furnitureHitboxList.add(hitbox);
-    	this.pane.getChildren().addAll(furnitureHitboxList);
-    }*/
-    
-    /**
-     * 
-     * @param hitbox
-     */
-    /*public void removeFromFurnitureHitboxList(Rectangle hitbox) {
-    	this.pane.getChildren().removeAll(furnitureHitboxList);
-    	furnitureHitboxList.remove(hitbox);
-    	this.pane.getChildren().addAll(furnitureHitboxList);
-    }*/
+    public void putImageViewInFront(ImageView imageView) {
+    	this.pane.getChildren().removeAll(imageList);
+    	imageList.remove(imageView);
+    	imageList.add(imageView);
+    	this.pane.getChildren().addAll(imageList);
+    }
     
     
 	/*
@@ -495,12 +435,18 @@ public class ControllerCreation{
     	
     }
     
-    
+    /**
+     * 
+     */
     @FXML
     protected void refaireObjet() {
     	
     }
     
+    /**
+     * sauvegarderPlan() : ouvre une autre fenetre de sauvegarde du plan
+     * @throws IOException
+     */
     @FXML
     protected void sauvegarderPlan() throws IOException {
 		HBox hboxD = (HBox)FXMLLoader.load(getClass().getResource("/code/kitchen_builder_save.xml"));
@@ -586,17 +532,11 @@ public class ControllerCreation{
 	public Rectangle getObjetSelectionne() {return objetSelectionne;}
 	public void setObjetSelectionne(Rectangle objetSelectionne) {this.objetSelectionne = objetSelectionne;}
 
-	//public ArrayList<ObjetCuisine> getListeObjetCuisine() {return listeObjetCuisine;}
-	//public void setListeObjetCuisine(ArrayList<ObjetCuisine> listeObjet) {this.listeObjetCuisine = listeObjet;}
-
 	public double getOrgTranslateX() {return orgTranslateX;}
 	public void setOrgTranslateX(double orgTranslateX) {this.orgTranslateX = orgTranslateX;}
 
 	public double getOrgTranslateY() {return orgTranslateY;}
 	public void setOrgTranslateY(double orgTranslateY) {this.orgTranslateY = orgTranslateY;}
-
-	//public ArrayList<Rectangle> getFurnitureHitboxList() {return furnitureHitboxList;}
-	//public void setFurnitureHitboxList(ArrayList<Rectangle> furnitureHitboxList) {this.furnitureHitboxList = furnitureHitboxList;}
 
 
 

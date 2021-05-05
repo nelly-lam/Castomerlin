@@ -5,8 +5,6 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,30 +14,30 @@ import javafx.stage.Stage;
 
 public class ControllerPageAccueil{
 	
-	//constantes qui definissent les dimensions maximales permises pour dessiner le plan de cuisine
+	/*constantes qui definissent les dimensions maximales permises 
+	 * pour dessiner le plan de cuisine */
 	public static final int largeurMaxPlan = 450;
 	public static final int longueurMaxPlan = 850;
 	
-	//echelle qui permet de redimensionner les meubles
+	/*echelle qui permet de redimensionner les meubles*/
 	private double echelle;
 	
-	//components de la page d'accueil
+	/*components de la page d'accueil*/
 	@FXML private Button commencer;
 	
-	//components de la page des dimensions
+	/*components de la page des dimensions*/
 	@FXML private TextField longueur;
 	@FXML private TextField largeur;
 	@FXML private Button creer;
 	@FXML private Label information;
 	
-	//components de la page de creation
 	private ControllerCreation cc;
 	
 	private Scene scene;
 	
 	@FXML private Rectangle rectangle;
 	
-	//attributs qui determinent les dimensions du plan (rectangle)
+	/*attributs qui determinent les dimensions du plan (rectangle)*/
 	private int LONG;
 	private int LARG;
 
@@ -47,30 +45,7 @@ public class ControllerPageAccueil{
 	private double widthFrame = 1280;
 	private double heightFrame = 720;
 	
-	/*****************GETTER ET SETTER*******************/
 	
-	public int getLONG() {return LONG;}
-	public void setLONG(int lONG) {LONG = lONG;}
-	public int getLARG() {return LARG;}
-	public void setLARG(int lARG) {LARG = lARG;}
-	public ControllerCreation getCc() {
-		return cc;
-	}
-	public void setCc(ControllerCreation cc) {
-		this.cc = cc;
-	}
-	public Scene getScene() {
-		return scene;
-	}
-	public void setScene(Scene scene) {
-		this.scene = scene;
-	}
-	public double getEchelle() {
-		return echelle;
-	}
-	public void setEchelle(double echelle) {
-		this.echelle = echelle;
-	}
 	
 	
 	public Stage launchWindow(String file, String title) throws IOException {
@@ -103,7 +78,8 @@ public class ControllerPageAccueil{
     
     
     /**
-     * creer() : cree un canvas avec les dimensions valides donnees par l'utilisateur
+     * creer() : ouvre une fenetre de creation avec un plan de cuisine defini par
+     * les dimensions valides donnees par l'utilisateur
      * dimensions valides : un nombre obligatoire pour la longueur et la largeur,
      * dimensions en cm
      * @throws IOException 
@@ -125,7 +101,9 @@ public class ControllerPageAccueil{
     			information.setText("Veuillez rentrer une longueur valide (nombre en cm)");
     		}else{
     			
-    			//On cree une nouvelle fenetre que si les dimensions rentrees par l'utilisateur sont valides
+    			/*On cree une nouvelle fenetre que 
+    			 * si les dimensions rentrees par l'utilisateur sont valides*/
+    			
                 Stage stageD = new Stage();
                 stageD.setTitle("CastoMerlin - création de votre plan de cuisine");
                 
@@ -134,13 +112,14 @@ public class ControllerPageAccueil{
                 ControllerCreation ca = fxmlLoader.<ControllerCreation>getController();
                 
 
-                //On recupere les dimensions rentrees de la cuisine
+                /*On recupere les dimensions de la cuisine rentrees par l'utilisateur*/
                 int longueurFictive, largeurFictive = 0;
                 
-                //On ecrit ces dimensions sur le plan mis a l'echelle
+                /*On ecrit ces dimensions sur le plan mis a l'echelle*/
                 String longueurSurPlanTxt;
                 String largeurSurPlanTxt;
                 
+                /*Arrangement tel que largeurFictive <= longueurFictive*/
                 if(Integer.valueOf(longueur.getText()) >= Integer.valueOf(largeur.getText())) {
                 	longueurFictive = Integer.valueOf(longueur.getText());
                     largeurFictive = Integer.valueOf(largeur.getText());
@@ -155,19 +134,16 @@ public class ControllerPageAccueil{
             		largeurSurPlanTxt = "Longueur = " + longueur.getText() + " cm";
                 }
         		
-        		/* CALCUL DE L'ECHELLE
-        		 * 
-        		 * */
-
+                
+        		/*****************CALCUL DE L'ECHELLE***********/
         		double rapportLongueurLargeur = longueurFictive / (double) largeurFictive;
         		double rapportLargeurLongueur = largeurFictive / (double) longueurFictive;
         		
-        		//Si la longueur finale ne depasse pas la limite fixee par longueurMaxPlan
+        		/*Si la longueur finale ne depasse pas la limite fixee par longueurMaxPlan*/
         		if(largeurMaxPlan * rapportLongueurLargeur <= longueurMaxPlan) {
         			setEchelle(largeurMaxPlan / (double) largeurFictive);
         			setLONG((int) (largeurMaxPlan * rapportLongueurLargeur));
         			setLARG(largeurMaxPlan);
-
         		}else {
         			setEchelle(longueurMaxPlan / (double) longueurFictive);
         			setLONG(longueurMaxPlan);
@@ -175,16 +151,14 @@ public class ControllerPageAccueil{
         			
         		}
         		
-        		//ecriture des dimensions 
+        		/*ecriture des dimensions sur le plan de cuisine*/ 
         		ca.setLongueurSurPlan(longueurSurPlanTxt);
         		ca.setLargeurSurPlan(largeurSurPlanTxt);
-
+        		ca.setLayoutYMesure50cmTrait(getLARG()+15); //on place l'echelle en dessous du plan
+        		ca.setWidthmesure50cmTrait(50*getEchelle()); //on determine la taille sur 50cm
+        		ca.setLayoutYMesure50cm(getLARG()+10); //on place le texte de l'echelle en dessous du plan
         		
-        		ca.setLayoutYMesure50cmTrait(getLARG()+15);
-        		ca.setWidthmesure50cmTrait(50*getEchelle());
-        		ca.setLayoutYMesure50cm(getLARG()+10);
-        		
-        		//on change les dimensions du plan (rectangle)
+        		/*on change les dimensions d'ecran du plan de cuisine*/
         		ca.setHeightPlanCuisine(getLARG());
         		ca.setWidthPlanCuisine(getLONG());
         		ca.setEchelle(getEchelle());
@@ -203,11 +177,32 @@ public class ControllerPageAccueil{
     	}
     }
     
-
+	/**
+	 * isNumeric() : verifie que les dimensions que l'utilisateur a rentre
+	 * est bien un nombre
+	 * @param str un texte (venant de dimension)
+	 * @return true si c'est un nombre, false sinon
+	 */
 	private boolean isNumeric(String str){
         return str != null && str.matches("[0-9.]+");
     }
 
     
-
+	/*****************GETTER ET SETTER*******************/
+	public int getLONG() {return LONG;}
+	public void setLONG(int lONG) {LONG = lONG;}
+	
+	public int getLARG() {return LARG;}
+	public void setLARG(int lARG) {LARG = lARG;}
+	
+	public ControllerCreation getCc() {return cc;}
+	public void setCc(ControllerCreation cc) {this.cc = cc;}
+	
+	public Scene getScene() {return scene;}
+	public void setScene(Scene scene) {this.scene = scene;}
+	
+	public double getEchelle() {return echelle;}
+	public void setEchelle(double echelle) {this.echelle = echelle;}
+	
+	
 }
