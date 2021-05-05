@@ -162,7 +162,10 @@ public class ControllerPageAccueil{
         		ca.setHeightPlanCuisine(getLARG());
         		ca.setWidthPlanCuisine(getLONG());
         		ca.setEchelle(getEchelle());
-
+        		
+        		//ca.setHeightCollisionPlan(getEchelle());
+        		//ca.setWidthCollisionPlan(getEchelle());
+        		
                 scene = new Scene(pane, widthFrame, heightFrame);
                 
                 ca.setPane(pane);

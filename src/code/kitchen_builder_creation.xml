@@ -406,6 +406,10 @@
                </children>
             </Pane>
          	<Rectangle fx:id="planCuisine" arcHeight="5.0" arcWidth="5.0" fill="#bababa" height="449.0" layoutX="63.0" layoutY="163.0" stroke="BLACK" strokeType="INSIDE" width="894.0" />
+         	<Line fx:id="topPlanCuisine" opacity="0.0" endX="912.0" endY="163.0" layoutX="0.0" layoutY="0.0" startX="63.0" startY="163.0" />
+            <Line fx:id="rightPlanCuisine" opacity="0.0" endX="912.0" endY="612.0" layoutX="0.0" layoutY="0.0" startX="912.0" startY="163.0" />
+            <Line fx:id="bottomPlanCuisine" opacity="0.0" endX="912.0" endY="612.0" layoutX="0.0" layoutY="0.0" startX="63.0" startY="612.0" />
+         	<Line fx:id="leftPlanCuisine" opacity="0.0" endX="64.83333587646484" endY="613.3333129882812" startX="64.83333587646484" startY="166.1666717529297" />
          	<Button fx:id="addPorte" onMouseClicked="#ajouterPorteFenetre" layoutX="1038.0" layoutY="613.0" mnemonicParsing="false" text="Ajout porte" />
             <Button fx:id="addFenetre" onMouseClicked="#ajouterPorteFenetre" layoutX="1148.0" layoutY="613.0" mnemonicParsing="false" text="Ajout fenêtre" />
             <Label fx:id="largeurSurPlan" layoutX="-12.0" layoutY="240.0" prefHeight="17.0" prefWidth="123.0" rotate="-90.0" text="largeur">

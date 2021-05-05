@@ -53,6 +53,12 @@ public class ControllerCreation{
 	
 	/*Le plan sur lequel on concoit la cuisine*/
 	@FXML private Rectangle planCuisine;
+	@FXML private Line topPlanCuisine;
+	@FXML private Line leftPlanCuisine;
+	@FXML private Line rightPlanCuisine;
+	@FXML private Line bottomPlanCuisine;
+	//@FXML private Rectangle collisionPlan;
+	
 	
 	@FXML private ImageView frame;
 	
@@ -330,10 +336,22 @@ public class ControllerCreation{
         public void handle(MouseEvent mouseEvent) {
     		ImageView iv = (ImageView) mouseEvent.getSource();
 
+    		/*Si l'imageView touche le trace du plan de cuisine,
+    		 * on replace l'imageView a son anicenne position*/
+    		if(iv.getBoundsInParent().intersects(topPlanCuisine.getBoundsInParent())
+    				|| iv.getBoundsInParent().intersects(leftPlanCuisine.getBoundsInParent())
+    				|| iv.getBoundsInParent().intersects(rightPlanCuisine.getBoundsInParent())
+    				|| iv.getBoundsInParent().intersects(bottomPlanCuisine.getBoundsInParent())) {
+    			((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
+    			((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
+    			indication.setTextFill(Color.color(1, 0, 0));
+    			indication.setText("Les meubles ne doivent pas dépasser le plan!");
+    		}
+    		
     		if(!iv.getBoundsInParent().intersects(planCuisine.getBoundsInParent())) {
     			
     			/* Si l'imageView et le plan de la cuisine ne se chevauchent plus,
-    			 * on replace l'imageView a sa position initiale
+    			 * on replace l'imageView a son anicenne position
     			 */
     			((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
     			((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
@@ -354,7 +372,7 @@ public class ControllerCreation{
     				if(iv.getBoundsInParent().intersects(otherImages.get(i).getBoundsInParent())) {
     					
     					/*Si l'imageView et une autre image se chevauchent, 
-    					 * on replace l'imageView a sa position initiale*/
+    					 * on replace l'imageView a son anicenne position*/
     					((ImageView)(mouseEvent.getSource())).setTranslateX(orgTranslateX);
     					((ImageView)(mouseEvent.getSource())).setTranslateY(orgTranslateY);
     					
@@ -475,16 +493,34 @@ public class ControllerCreation{
 
 	/*****************POUR DIMENSIONNER LE PLAN DE LA CUISINE******************/
 	public int getLayoutXPlanCuisine() { return (int) this.planCuisine.getLayoutX(); }
-	public int getLayoutYPlanCuisine() { return (int) this.planCuisine.getLayoutY(); }
-	
 	public void setLayoutXPlanCuisine(int d) {this.planCuisine.setLayoutX(d);}
+	
+	public int getLayoutYPlanCuisine() { return (int) this.planCuisine.getLayoutY(); }
 	public void setLayoutYPlanCuisine(int d) {this.planCuisine.setLayoutY(d);}
 	
 	public int getHeightPlanCuisine() { return (int) this.planCuisine.getHeight(); }
-	public int getWidthPlanCuisine() { return (int) this.planCuisine.getWidth(); }
+	public void setHeightPlanCuisine(int d) {
+		this.planCuisine.setHeight(d);
+		this.leftPlanCuisine.setEndY(getLayoutYPlanCuisine()+d);
+		this.bottomPlanCuisine.setStartY(getLayoutYPlanCuisine()+d);
+		this.bottomPlanCuisine.setEndY(getLayoutYPlanCuisine()+d);
+		this.rightPlanCuisine.setEndY(getLayoutYPlanCuisine()+d);
+	}
 	
-	public void setHeightPlanCuisine(int d) {this.planCuisine.setHeight(d);}
-	public void setWidthPlanCuisine(int d) {this.planCuisine.setWidth(d);}
+	public int getWidthPlanCuisine() { return (int) this.planCuisine.getWidth(); }
+	public void setWidthPlanCuisine(int d) {
+		this.planCuisine.setWidth(d);
+		this.topPlanCuisine.setEndX(getLayoutXPlanCuisine()+d);
+		this.rightPlanCuisine.setStartX(getLayoutXPlanCuisine()+d);
+		this.rightPlanCuisine.setEndX(getLayoutXPlanCuisine()+d);
+		this.bottomPlanCuisine.setEndX(getLayoutXPlanCuisine()+d);
+	}
+	
+	//public int getHeightCollisionPlan() { return (int) this.collisionPlan.getHeight(); }
+	//public void setHeightCollisionPlan(double d) { this.collisionPlan.setHeight(d*collisionPlan.getHeight());}
+	
+	//public int getWidthCollisionPlan() { return (int) this.collisionPlan.getWidth(); }
+	//public void setWidthCollisionPlan(double d) { this.collisionPlan.setWidth(d*collisionPlan.getWidth());}
 	
 	
 	/*****************POUR RECUPERER L'ECHELLE******************/
