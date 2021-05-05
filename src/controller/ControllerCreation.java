@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -57,8 +58,6 @@ public class ControllerCreation{
 	@FXML private Line leftPlanCuisine;
 	@FXML private Line rightPlanCuisine;
 	@FXML private Line bottomPlanCuisine;
-	//@FXML private Rectangle collisionPlan;
-	
 	
 	@FXML private ImageView frame;
 	
@@ -141,6 +140,16 @@ public class ControllerCreation{
         
 
     }
+    
+    /*
+    @FXML
+    protected void addFurniture(MouseEvent e) {
+    	ControllerMaterials cm = new ControllerMaterials(getPane(), materiauEvier,
+    			materiauTable, materiauFour);
+    	materiauEvier.setOnMouseClicked(cm);
+    	materiauTable.setOnMouseClicked(cm);
+    	materiauFour.setOnMouseClicked(cm);
+    }*/
     
     
     /**

@@ -116,7 +116,6 @@ public class ControllerPageAccueil{
         		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/code/kitchen_builder_creation.xml"));
                 Pane pane = (Pane) fxmlLoader.load();
                 ControllerCreation ca = fxmlLoader.<ControllerCreation>getController();
-                
 
                 /*On recupere les dimensions de la cuisine rentrees par l'utilisateur*/
                 int fictionalWidth, fictionalHeight = 0;
