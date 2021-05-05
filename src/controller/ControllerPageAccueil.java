@@ -15,11 +15,11 @@ public class ControllerPageAccueil{
 	
 	/*constantes qui definissent les dimensions maximales permises 
 	 * pour dessiner le plan de cuisine */
-	public static final int largeurMaxPlan = 450;
-	public static final int longueurMaxPlan = 850;
+	public static final int maxHeightPlan = 450;
+	public static final int maxWidthPlan = 850;
 	
 	/*echelle qui permet de redimensionner les meubles*/
-	private double echelle;
+	private double scale;
 	
 	/*components de la page d'accueil*/
 	@FXML private Button begin;
@@ -27,7 +27,7 @@ public class ControllerPageAccueil{
 	/*components de la page des dimensions*/
 	@FXML private TextField longueur;
 	@FXML private TextField largeur;
-	@FXML private Button creer;
+	@FXML private Button create;
 	@FXML private Label information;
 	
 	private ControllerCreation cc;
@@ -119,55 +119,55 @@ public class ControllerPageAccueil{
                 
 
                 /*On recupere les dimensions de la cuisine rentrees par l'utilisateur*/
-                int longueurFictive, largeurFictive = 0;
+                int fictionalWidth, fictionalHeight = 0;
                 
                 /*On ecrit ces dimensions sur le plan mis a l'echelle*/
-                String longueurSurPlanTxt;
-                String largeurSurPlanTxt;
+                String textWidth;
+                String textHeight;
                 
                 /*Arrangement tel que largeurFictive <= longueurFictive*/
                 if(Integer.valueOf(longueur.getText()) >= Integer.valueOf(largeur.getText())) {
-                	longueurFictive = Integer.valueOf(longueur.getText());
-                    largeurFictive = Integer.valueOf(largeur.getText());
+                	fictionalWidth = Integer.valueOf(longueur.getText());
+                    fictionalHeight = Integer.valueOf(largeur.getText());
                     
-                    longueurSurPlanTxt = "Longueur = " + longueur.getText() + " cm";
-            		largeurSurPlanTxt = "Largeur = " + largeur.getText() + " cm";
+                    textWidth = "Longueur = " + longueur.getText() + " cm";
+            		textHeight = "Largeur = " + largeur.getText() + " cm";
                 }else {
-                	largeurFictive = Integer.valueOf(longueur.getText());
-                    longueurFictive = Integer.valueOf(largeur.getText());
+                	fictionalHeight = Integer.valueOf(longueur.getText());
+                    fictionalWidth = Integer.valueOf(largeur.getText());
                     
-                    longueurSurPlanTxt = "Largeur = " + largeur.getText() + " cm";
-            		largeurSurPlanTxt = "Longueur = " + longueur.getText() + " cm";
+                    textWidth = "Largeur = " + largeur.getText() + " cm";
+            		textHeight = "Longueur = " + longueur.getText() + " cm";
                 }
         		
                 
         		/*****************CALCUL DE L'ECHELLE***********/
-        		double rapportLongueurLargeur = longueurFictive / (double) largeurFictive;
-        		double rapportLargeurLongueur = largeurFictive / (double) longueurFictive;
+        		double ratioWidthHeight = fictionalWidth / (double) fictionalHeight;
+        		double ratioHeightWidth = fictionalHeight / (double) fictionalWidth;
         		
         		/*Si la longueur finale ne depasse pas la limite fixee par longueurMaxPlan*/
-        		if(largeurMaxPlan * rapportLongueurLargeur <= longueurMaxPlan) {
-        			setEchelle(largeurMaxPlan / (double) largeurFictive);
-        			setWidthPlan((int) (largeurMaxPlan * rapportLongueurLargeur));
-        			setHeightPlan(largeurMaxPlan);
+        		if(maxHeightPlan * ratioWidthHeight <= maxWidthPlan) {
+        			setScale(maxHeightPlan / (double) fictionalHeight);
+        			setWidthPlan((int) (maxHeightPlan * ratioWidthHeight));
+        			setHeightPlan(maxHeightPlan);
         		}else {
-        			setEchelle(longueurMaxPlan / (double) longueurFictive);
-        			setWidthPlan(longueurMaxPlan);
-        			setHeightPlan((int) (longueurMaxPlan * rapportLargeurLongueur));
+        			setScale(maxWidthPlan / (double) fictionalWidth);
+        			setWidthPlan(maxWidthPlan);
+        			setHeightPlan((int) (maxWidthPlan * ratioHeightWidth));
         			
         		}
         		
         		/*ecriture des dimensions sur le plan de cuisine*/ 
-        		ca.setLongueurSurPlan(longueurSurPlanTxt);
-        		ca.setLargeurSurPlan(largeurSurPlanTxt);
+        		ca.setLongueurSurPlan(textWidth);
+        		ca.setLargeurSurPlan(textHeight);
         		ca.setLayoutYMesure50cmTrait(getHeightPlan()+15); //on place l'echelle en dessous du plan
-        		ca.setWidthmesure50cmTrait(50*getEchelle()); //on determine la taille sur 50cm
+        		ca.setWidthmesure50cmTrait(50*getScale()); //on determine la taille sur 50cm
         		ca.setLayoutYMesure50cm(getHeightPlan()+10); //on place le texte de l'echelle en dessous du plan
         		
         		/*on change les dimensions d'ecran du plan de cuisine*/
         		ca.setHeightPlanCuisine(getHeightPlan());
         		ca.setWidthPlanCuisine(getWidthPlan());
-        		ca.setEchelle(getEchelle());
+        		ca.setEchelle(getScale());
         		
                 scenePageCreation = new Scene(pane, widthFrame, heightFrame);
                 
@@ -177,7 +177,7 @@ public class ControllerPageAccueil{
                 
                 stageD.setScene(scenePageCreation);
                 stageD.show();
-        		closeCurrentWindow(creer);
+        		closeCurrentWindow(create);
     		}
 
     	}
@@ -208,8 +208,8 @@ public class ControllerPageAccueil{
 	public Scene getScenePageCreation() {return scenePageCreation;}
 	public void setScenePageCreation(Scene scene) {this.scenePageCreation = scene;}
 	
-	public double getEchelle() {return echelle;}
-	public void setEchelle(double echelle) {this.echelle = echelle;}
+	public double getScale() {return scale;}
+	public void setScale(double echelle) {this.scale = echelle;}
 	
 	
 }
