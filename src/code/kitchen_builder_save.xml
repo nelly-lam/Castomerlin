@@ -35,7 +35,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="annulerEnvoie" onMouseClicked="#annulerEnvoiePlan" layoutX="265.0" layoutY="200.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="92.0" text="Annuler">
+                  <Button fx:id="annulerEnvoi" onMouseClicked="#annulerEnvoiPlan" layoutX="265.0" layoutY="200.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="92.0" text="Annuler">
                      <font>
                         <Font size="18.0" />
                      </font>

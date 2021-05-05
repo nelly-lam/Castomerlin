@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -14,23 +16,24 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEvent>{
-	private ArrayList<ImageView> imageList, imageListCopy;
+	private ArrayList<ImageView> imageList;
 	private Pane pane;
 	private boolean isFlipped;
 	private double orgTranslateX;
 	private double orgTranslateY;
 	private Rectangle planCuisine;
+	private boolean isShown;
 	
 	
-	public ImageViewOnMouseClickedEventHandler(Pane p, ArrayList<ImageView> imageList, 
-			ArrayList<ImageView> imageListCopy, double orgTranslateX, double orgTranslateY, Rectangle planCuisine) {
+	public ImageViewOnMouseClickedEventHandler(Pane p, ArrayList<ImageView> imageList, double orgTranslateX, 
+									double orgTranslateY, Rectangle planCuisine) {
 		this.pane = p;
 		this.imageList = imageList;
-		this.setImageListCopy(imageListCopy);
 		this.isFlipped = false;
 		this.orgTranslateX = orgTranslateX;
 		this.orgTranslateY = orgTranslateY;
 		this.planCuisine = planCuisine;
+		this.isShown = false;
 	}
 	
 	
@@ -48,69 +51,63 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
 	 * @param e un MouseEvent
 	 */
 	public void addChoices(MouseEvent e) {
-		ContextMenu contextMenu = new ContextMenu();
-		MenuItem pivoterG = new MenuItem("Pivoter à gauche");
-		MenuItem pivoterD = new MenuItem("Pivoter à droite");
-		MenuItem retourner = new MenuItem("Retourner");
-		MenuItem supprimer = new MenuItem("Supprimer");
-		MenuItem annuler = new MenuItem("Annuler");
-		contextMenu.getItems().addAll(pivoterG, pivoterD, retourner, supprimer, annuler);
+		if(this.isShown){
+			return;
+		} else {
+			ContextMenu contextMenu = new ContextMenu();
+			MenuItem pivoterG = new MenuItem("Pivoter a gauche");
+			MenuItem pivoterD = new MenuItem("Pivoter a droite");
+			MenuItem retourner = new MenuItem("Retourner");
+			MenuItem supprimer = new MenuItem("Supprimer");
+			MenuItem annuler = new MenuItem("Annuler");
+			contextMenu.getItems().addAll(pivoterG, pivoterD, retourner, supprimer, annuler);
+			
+			pivoterG.setOnAction(event -> { rotateFurniture(e, "left"); });
+			pivoterD.setOnAction(event -> { rotateFurniture(e, "right"); });
+			retourner.setOnAction(event -> { flipFurniture(e); });
+			supprimer.setOnAction(event -> { removeFurniture(e); });
+			annuler.setOnAction(event -> { 
+				contextMenu.hide();
+				this.isShown = false;
+			});
+			
+			contextMenu.show(this.pane, e.getScreenX(), e.getScreenY());
+			this.isShown = true;
+		}
 		
-		pivoterG.setOnAction(event -> { rotateLeftFurniture(e); });
-		pivoterD.setOnAction(event -> { rotateRightFurniture(e); });
-		retourner.setOnAction(event -> { flipFurniture(e); });
-		supprimer.setOnAction(event -> { removeFurniture(e); });
-		annuler.setOnAction(event -> { contextMenu.hide(); });
-		
-		contextMenu.show(this.pane, e.getScreenX(), e.getScreenY());
 	}
 	
 	/**
-	 * rotateLeftFurniture() : pivote vers la gauche le meuble selectionne
+	 * rotateFurniture() : pivote le meuble selectionne
 	 * @param mouseEvent un MouseEvent
 	 */
-	public void rotateLeftFurniture(MouseEvent mouseEvent) {
-		for(int i = 0; i<imageList.size(); i++) {
-        	if(mouseEvent.getSource().equals(imageList.get(i))){
-        		imageList.get(i).setRotate(imageList.get(i).getRotate() + 90); 
-            }
-        }
+	public void rotateFurniture(MouseEvent mouseEvent, String direction) {
+		ImageView b = (ImageView)(mouseEvent.getSource());
+		if(direction.equals("right")){
+			b.setRotate(b.getRotate() + 90);
+		} else if (direction.equals("left")){
+			b.setRotate(b.getRotate() - 90);
+		}
 		collisionPlan(mouseEvent);
 	}
-	
-	/**
-	 * rotateRightFurniture() : pivote vers la droite le meuble selectionne
-	 * @param mouseEvent un MouseEvent
-	 */
-	public void rotateRightFurniture(MouseEvent mouseEvent) {
-		for(int i = 0; i<imageList.size(); i++) {
-        	if(mouseEvent.getSource().equals(imageList.get(i))){
-        		imageList.get(i).setRotate(imageList.get(i).getRotate() - 90); 
-            }
-        }
-		collisionPlan(mouseEvent);
-	}
-	
+
 	
 	/**
 	 * flipFurniture() : retourne le meuble selectionne
 	 * @param mouseEvent un MouseEvent
 	 */
 	public void flipFurniture(MouseEvent mouseEvent) {
-		for(int i = 0; i<imageList.size(); i++) {
-        	if(mouseEvent.getSource().equals(imageList.get(i))){
-        		if(!isFlipped) {
-        			Translate flipTranslation = new Translate(0, imageList.get(i).getImage().getHeight());
-        			Rotate flipRotation = new Rotate(180,Rotate.X_AXIS);
-        			imageList.get(i).getTransforms().addAll(flipTranslation,flipRotation);
-        			imageList.get(i).setRotate(180);
-        			isFlipped = true;
-        		}else if(isFlipped){
-        			imageList.get(i).setRotate(0); 
-        			isFlipped = false;
-        		}
-            }
-        }
+		ImageView b = (ImageView)(mouseEvent.getSource());
+		if(isFlipped){
+			b.setRotate(0); 
+			isFlipped = false;
+		} else {
+			Translate flipTranslation = new Translate(0, b.getImage().getHeight());
+			Rotate flipRotation = new Rotate(180,Rotate.X_AXIS);
+			b.getTransforms().addAll(flipTranslation,flipRotation);
+			b.setRotate(180);
+			isFlipped = true;
+		}
 	}
 	
 	/**
@@ -119,15 +116,9 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
 	 * @param mouseEvent un MouseEvent
 	 */
 	public void removeFurniture(MouseEvent mouseEvent) {
-		for(int i = 0; i<imageList.size(); i++) {
-        	if(mouseEvent.getSource().equals(imageList.get(i))){
-        		ImageView iv = imageList.get(i);
-        		removeFromImageList(iv);
-        		setImageListCopy(getImageList());
-            }
-        }
+		ImageView b = (ImageView)(mouseEvent.getSource());
+		removeFromImageList(b);
 	}
-	
 	
 	/**
 	 * collisionPlan() : verifie si le meuble selectionne chevauche d'autres meubles,
@@ -170,12 +161,7 @@ public class ImageViewOnMouseClickedEventHandler implements EventHandler<MouseEv
     	this.pane.getChildren().addAll(imageList);
     }
 
-    
-    
     /*********************GETTER ET SETTER**********************/
 	public ArrayList<ImageView> getImageList() {return imageList;}
 	public void setImageList(ArrayList<ImageView> imageList) {this.imageList = imageList;}
-
-	public ArrayList<ImageView> getImageListCopy() {return imageListCopy;}
-	public void setImageListCopy(ArrayList<ImageView> imageListCopy) {this.imageListCopy = imageListCopy;}
 }
