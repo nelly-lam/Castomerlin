@@ -141,17 +141,6 @@ public class ControllerCreation{
 
     }
     
-    /*
-    @FXML
-    protected void addFurniture(MouseEvent e) {
-    	ControllerMaterials cm = new ControllerMaterials(getPane(), materiauEvier,
-    			materiauTable, materiauFour);
-    	materiauEvier.setOnMouseClicked(cm);
-    	materiauTable.setOnMouseClicked(cm);
-    	materiauFour.setOnMouseClicked(cm);
-    }*/
-    
-    
     /**
      * ajouterObjet() : ajoute l'image correspondante a l'objet qu'on veut ajouter dans le plan
      * @param e un MouseEvent, ici un clic de souris sur des boutons
