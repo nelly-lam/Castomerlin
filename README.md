@@ -2,6 +2,7 @@
 
 ### Présentation
 Ce projet consiste en la conception et réalisation d’une application permettant de dessiner le plan d’une cuisine en 2 dimensions.
+![Alt text](https://github.com/nelly-lam/Castomerlin/blob/master/suppression_equipement.jpg)
 
 ### Contexte
 L’application de création de cuisine 2D est destinée aux clients commandant sur le site de l’entreprise commanditaire. Le client se connectant au site peut dessiner un plan de cuisine 2D en l'aménageant avec les équipements fournis par l'entreprise.\
